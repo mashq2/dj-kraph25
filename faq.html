@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ Kraph - FAQ</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .faq-container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(255, 215, 0, 0.05);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+        }
+
+        .faq-container h1 {
+            color: #FFD700;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .faq-item {
+            background: #1e1e1e;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+            border-left: 3px solid #FFD700;
+        }
+
+        .faq-item h3 {
+            color: #FFD700;
+            margin: 0 0 10px 0;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .faq-item h3:hover {
+            color: #FFC700;
+        }
+
+        .faq-item p {
+            color: #aaa;
+            margin: 0;
+            display: none;
+            line-height: 1.6;
+        }
+
+        .faq-item p.active {
+            display: block;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            color: #FFC700;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="faq-container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        
+        <h1>❓ FAQ - Frequently Asked Questions</h1>
+
+        <div class="faq-item">
+            <h3>How do I purchase a mix?</h3>
+            <p>Simply click on any mix you like, add it to your cart, and proceed to checkout. You can pay using M-Pesa (Kenya), Credit/Debit Card, or PayPal. After payment is confirmed, your mix will be available for download immediately.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Can I preview the mix before buying?</h3>
+            <p>Yes! Each mix has a 30-second preview available. Click the preview button on the mix card to listen before you purchase. This will help you decide if it's what you're looking for.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>How do I download my purchased mixes?</h3>
+            <p>After successful payment, you'll receive a download link via email. You can also access all your downloads from your account dashboard. Your purchases are stored in your library and available anytime.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>What payment methods do you accept?</h3>
+            <p>We accept M-Pesa (for Kenya), Credit/Debit Cards (Visa, Mastercard via Stripe), and PayPal for international payments. All payments are secure, encrypted, and processed instantly.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Can I create and share playlists?</h3>
+            <p>Yes! Once you purchase mixes, you can create custom playlists and organize them however you like. You can also share playlists with other users using a unique share link.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>What is a subscription plan?</h3>
+            <p>Our subscription plans give you unlimited access to all mixes for a monthly fee. Choose between Basic (KSh 1,999/month) and Premium (KSh 3,999/month) plans. Cancel anytime.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>How do I become an affiliate?</h3>
+            <p>Interested in earning commission? Join our Affiliate Program and earn 15-20% commission on every sale you refer. Sign up in your account settings and start sharing your unique referral link.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Can I leave reviews for mixes?</h3>
+            <p>Absolutely! After purchasing a mix, you can leave a review with a star rating and comment. Your feedback helps other users make better decisions and helps artists improve their work.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>What is the wishlist feature?</h3>
+            <p>The wishlist lets you save mixes you're interested in without buying them immediately. You can access your wishlist anytime and get notified when prices change or new mixes are added.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>How do I contact support?</h3>
+            <p>For any issues or questions, email us at support@djkraph.com or use the contact form on our website. We aim to respond to all inquiries within 24 hours.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Is my payment information secure?</h3>
+            <p>Yes! We use industry-standard SSL encryption and PCI DSS compliance to protect all payment information. Your data is never stored unencrypted and is handled with the utmost security.</p>
+        </div>
+
+        <div class="faq-item">
+            <h3>Can I refund my purchase?</h3>
+            <p>Refunds are available within 7 days of purchase if you haven't downloaded the mix. Once downloaded, refunds are not available as per our digital goods policy. Contact support for assistance.</p>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.faq-item h3').forEach(header => {
+            header.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const isActive = answer.classList.contains('active');
+                
+                document.querySelectorAll('.faq-item p').forEach(p => p.classList.remove('active'));
+                
+                if (!isActive) {
+                    answer.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

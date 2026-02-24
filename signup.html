@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ Kraph - Sign Up</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .auth-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #121212;
+            padding: 20px;
+        }
+
+        .auth-card {
+            background: #181818;
+            padding: 50px;
+            border-radius: 15px;
+            border: 2px solid #FFD700;
+            box-shadow: 0 20px 60px rgba(255, 215, 0, 0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            color: white;
+        }
+
+        .auth-card h1 {
+            color: #FFD700;
+            margin-bottom: 30px;
+            font-size: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            color: #FFD700;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            background: #1e1e1e;
+            color: white;
+            border: 1px solid #FFD700;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            background: #252525;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #FFD700;
+            color: #121212;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background: #FFC700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+
+        .message.success {
+            background: rgba(144, 238, 144, 0.2);
+            color: #90EE90;
+            border: 1px solid #90EE90;
+            display: block;
+        }
+
+        .message.error {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+            border: 1px solid #ff6b6b;
+            display: block;
+        }
+
+        .footer-link {
+            margin-top: 20px;
+            color: #aaa;
+        }
+
+        .footer-link a {
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer-link a:hover {
+            text-decoration: underline;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            color: #FFC700;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <a href="index.html" class="back-link">← Back to Home</a>
+            
+            <h1>🎵 Sign Up</h1>
+
+            <div id="message" class="message"></div>
+
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="username">Username *</label>
+                    <input type="text" id="username" placeholder="Your username" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="signupEmail">Email *</label>
+                    <input type="email" id="signupEmail" placeholder="your@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="signupPassword">Password *</label>
+                    <input type="password" id="signupPassword" placeholder="Create a strong password" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password *</label>
+                    <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                </div>
+
+                <button type="submit" class="submit-btn">Create Account</button>
+            </form>
+
+            <div class="footer-link">
+                Already have an account? <a href="login.html">Login here</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/authManager.js"></script>
+</body>
+</html>

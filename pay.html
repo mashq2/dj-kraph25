@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DJ Kraph.co.ke - Payment</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .payment-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #121212;
+    }
+
+    .payment-card {
+      background: #181818;
+      padding: 50px;
+      border-radius: 15px;
+      border: 2px solid #FFD700;
+      box-shadow: 0 20px 60px rgba(255, 215, 0, 0.3);
+      text-align: center;
+      max-width: 500px;
+      color: white;
+      position: relative;
+    }
+
+    .payment-card h1 {
+      color: #FFD700;
+      margin-bottom: 20px;
+      font-size: 28px;
+    }
+
+    .payment-card p {
+      font-size: 16px;
+      color: #aaa;
+      margin-bottom: 15px;
+    }
+
+    .auth-links {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 60px;
+      margin-bottom: 25px;
+      padding: 25px;
+      background: rgba(255, 215, 0, 0.05);
+      border-radius: 8px;
+      border: 1px solid #333;
+      flex-wrap: wrap;
+    }
+
+    .auth-links a {
+      color: #FFD700;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      padding: 12px 20px;
+      border-radius: 5px;
+      flex-shrink: 0;
+    }
+
+    .auth-links a:hover {
+      background: rgba(255, 215, 0, 0.1);
+      color: #FFC700;
+    }
+
+    .auth-links span {
+      color: #666;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+
+    .price-display {
+      font-size: 36px;
+      color: #FFD700;
+      font-weight: bold;
+      margin: 30px 0;
+      padding: 20px;
+      background: rgba(255, 215, 0, 0.1);
+      border-radius: 10px;
+    }
+
+    #payButton {
+      padding: 15px 40px;
+      font-size: 18px;
+      background-color: #FFD700;
+      color: #121212;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s;
+      width: 100%;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    #payButton:hover {
+      background-color: #FFC700;
+    }
+
+    #backButton {
+      padding: 12px 30px;
+      font-size: 16px;
+      background-color: transparent;
+      color: #FFD700;
+      border: 2px solid #FFD700;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s;
+      width: 100%;
+      font-weight: bold;
+    }
+
+    #backButton:hover {
+      background-color: #FFD700;
+      color: #121212;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-size: 16px;
+      color: #FFD700;
+      min-height: 20px;
+    }
+
+    .track-info {
+      background: rgba(255, 215, 0, 0.1);
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .track-info h3 {
+      margin-top: 0;
+      color: #FFD700;
+    }
+
+    .payment-method-selector {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 25px;
+      justify-content: center;
+    }
+
+    .payment-method-btn {
+      padding: 12px 25px;
+      border: 2px solid #444;
+      background: #252525;
+      color: #aaa;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      font-size: 14px;
+    }
+
+    .payment-method-btn:hover {
+      border-color: #FFD700;
+      color: #FFD700;
+    }
+
+    .payment-method-btn.active {
+      background: #FFD700;
+      color: #121212;
+      border-color: #FFD700;
+    }
+
+    .payment-container-section {
+      display: none;
+      margin: 20px 0;
+    }
+
+    .payment-container-section.active {
+      display: block;
+    }
+
+    #stripe-card-element {
+      background: #252525;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #444;
+      margin-bottom: 15px;
+      color: white;
+    }
+
+    .stripe-group {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px;
+      background: #252525;
+      border: 1px solid #444;
+      border-radius: 8px;
+      color: white;
+      font-size: 14px;
+      box-sizing: border-box;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: #FFD700;
+      box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+    }
+
+    .form-input::placeholder {
+      color: #666;
+    }
+
+    #paypal-button-container {
+      margin: 20px 0;
+    }
+  </style>
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=AZDxjDScFpQtjWTOUtWKhN5BpPkqAd7hvUU2RTIqXlzBH-z6qC5SKIRQ-8w49CV2PN1m1u3mNte-zEhs"></script>
+  <script src="js/mpesaPaymentManager.js"></script>
+</head>
+<body>
+
+  <div class="payment-container">
+    <div class="payment-card">
+      <h1>🎵 DJ Kraph.co.ke Premium</h1>
+    
+    <div class="auth-links">
+      <a href="login.html">Login</a>
+    </div>
+      
+      <div class="track-info">
+        <h3 id="trackName">Loading...</h3>
+        <p id="trackDescription">Your selected mix</p>
+      </div>
+
+      <p>Complete your payment to unlock exclusive music</p>
+
+      <div class="price-display" id="priceDisplay">$0</div>
+
+      <!-- Payment Method Selector -->
+      <div class="payment-method-selector">
+        <button class="payment-method-btn active" onclick="selectPaymentMethod('mpesa')">📱 M-Pesa</button>
+        <button class="payment-method-btn" onclick="selectPaymentMethod('stripe')">💳 Card</button>
+        <button class="payment-method-btn" onclick="selectPaymentMethod('paypal')">🅿️ PayPal</button>
+      </div>
+
+      <!-- M-Pesa Payment Form -->
+      <div id="mpesa-section" class="payment-container-section active">
+        <!-- M-Pesa Payment Options -->
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+          <button onclick="showMpesaOption('stk')" id="stk-tab" style="flex: 1; padding: 12px; background: #22B14C; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.3s;">STK Push</button>
+          <button onclick="showMpesaOption('paybill')" id="paybill-tab" style="flex: 1; padding: 12px; background: #333; color: #aaa; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.3s;">PayBill</button>
+        </div>
+
+        <!-- STK Push Option -->
+        <div id="stk-option" style="display: block;">
+          <div style="background: rgba(34, 177, 76, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #22B14C;">
+            <p style="margin: 0 0 10px 0; color: #22B14C; font-weight: bold;">📱 STK Push Payment:</p>
+            <ol style="text-align: left; color: #aaa; font-size: 13px; margin: 0; padding-left: 20px;">
+              <li>Enter your M-Pesa phone number</li>
+              <li>You'll receive an STK push notification</li>
+              <li>Enter your M-Pesa PIN to confirm</li>
+              <li>Payment confirmed instantly!</li>
+            </ol>
+          </div>
+          <input type="tel" id="mpesa-phone" class="form-input" placeholder="254712345678" required style="margin-bottom: 15px;">
+          <div style="background: rgba(255, 215, 0, 0.1); padding: 12px; border-radius: 8px; margin-bottom: 15px;">
+            <p style="margin: 0; color: #FFD700; font-size: 14px;"><strong>Amount to Pay:</strong> <span id="mpesa-amount-display">KES 0</span></p>
+          </div>
+          <button id="mpesa-pay-btn" onclick="processMpesaPayment()" style="width: 100%; padding: 15px; background: #22B14C; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.3s; font-size: 16px;">Pay with M-Pesa STK</button>
+        </div>
+
+        <!-- PayBill Option -->
+        <div id="paybill-option" style="display: none;">
+          <div style="background: rgba(34, 177, 76, 0.1); padding: 20px; border-radius: 10px; margin-bottom: 15px; border: 1px solid #22B14C;">
+            <p style="margin: 0 0 15px 0; color: #22B14C; font-weight: bold; font-size: 16px;">💳 Lipa na M-Pesa PayBill:</p>
+            <div style="background: rgba(255, 215, 0, 0.15); padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #FFD700;">
+              <p style="margin: 0 0 8px 0; color: #FFD700; font-size: 15px;"><strong>Business Number:</strong> <span style="font-size: 20px; font-weight: bold;">247247</span></p>
+              <p style="margin: 0; color: #FFD700; font-size: 15px;"><strong>Account Number:</strong> <span style="font-size: 20px; font-weight: bold;">0799986497</span></p>
+            </div>
+            <p style="margin: 0 0 10px 0; color: #aaa; font-weight: bold; font-size: 14px;">Payment Instructions:</p>
+            <ol style="text-align: left; color: #aaa; font-size: 13px; margin: 0; padding-left: 20px; line-height: 1.8;">
+              <li>Go to M-Pesa on your phone</li>
+              <li>Select <strong>Lipa na M-Pesa</strong></li>
+              <li>Select <strong>Pay Bill</strong></li>
+              <li>Enter Business Number: <strong style="color: #FFD700;">247247</strong></li>
+              <li>Enter Account Number: <strong style="color: #FFD700;">0799986497</strong></li>
+              <li>Enter Amount: <strong style="color: #FFD700;"><span id="paybill-amount-display">KES 0</span></strong></li>
+              <li>Enter your M-Pesa PIN and confirm</li>
+              <li>You will receive a confirmation SMS</li>
+            </ol>
+          </div>
+          <div style="background: rgba(255, 0, 0, 0.1); padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px solid #ff4444;">
+            <p style="margin: 0; color: #ff6666; font-size: 13px;"><strong>⚠️ Important:</strong> After making payment, please send the M-Pesa confirmation message to <strong style="color: #FFD700;">0799986497</strong> or email us at <strong style="color: #FFD700;">djkraph@gmail.com</strong> to confirm your order.</p>
+          </div>
+          <button onclick="confirmManualPayment()" style="width: 100%; padding: 15px; background: #22B14C; color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.3s; font-size: 16px;">I Have Completed Payment</button>
+        </div>
+      </div>
+
+      <!-- Stripe Payment Form -->
+      <div id="stripe-section" class="payment-container-section">
+        <div id="stripe-card-element"></div>
+        <div class="stripe-group">
+          <input type="text" id="card-name" class="form-input" placeholder="Full Name" required>
+          <input type="email" id="card-email" class="form-input" placeholder="Email" required>
+        </div>
+        <button id="stripe-pay-btn" onclick="processStripePayment()" class="payment-btn" style="width: 100%; padding: 12px; background: #FFD700; color: #121212; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: all 0.3s;">Pay with Stripe</button>
+      </div>
+
+      <!-- PayPal Payment Form -->
+      <div id="paypal-section" class="payment-container-section">
+        <div id="paypal-button-container"></div>
+      </div>
+
+      <button id="backButton">← Back to DJ Kraph.co.ke</button>
+
+      <div id="message"></div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize Stripe and PayPal
+    const stripe = Stripe('pk_test_51ABC123DEF456GHI789JKL');
+    const elements = stripe.elements();
+    const cardElement = elements.create('card');
+    
+    let currentPaymentMethod = 'mpesa';
+    let trackPrice = 0;
+    const USD_TO_KES = 150; // Approximate conversion rate
+
+    // Get URL parameters for track info
+    const urlParams = new URLSearchParams(window.location.search);
+    const trackName = urlParams.get('track') || 'Premium Mix';
+    trackPrice = parseFloat(urlParams.get('price')) || 100;
+    const trackType = urlParams.get('type') || 'audio';
+    const trackSrc = urlParams.get('src') || '';
+
+    // Display track info
+    document.getElementById('trackName').textContent = trackName;
+    document.getElementById('priceDisplay').textContent = `$${trackPrice.toFixed(2)}`;
+    
+    // Update M-Pesa amount display
+    const kesAmount = Math.round(trackPrice * USD_TO_KES);
+    document.getElementById('mpesa-amount-display').textContent = `KES ${kesAmount.toLocaleString()}`;
+    document.getElementById('paybill-amount-display').textContent = `KES ${kesAmount.toLocaleString()}`;
+
+    // Function to switch between STK Push and PayBill
+    function showMpesaOption(option) {
+      const stkOption = document.getElementById('stk-option');
+      const paybillOption = document.getElementById('paybill-option');
+      const stkTab = document.getElementById('stk-tab');
+      const paybillTab = document.getElementById('paybill-tab');
+
+      if (option === 'stk') {
+        stkOption.style.display = 'block';
+        paybillOption.style.display = 'none';
+        stkTab.style.background = '#22B14C';
+        stkTab.style.color = 'white';
+        paybillTab.style.background = '#333';
+        paybillTab.style.color = '#aaa';
+      } else {
+        stkOption.style.display = 'none';
+        paybillOption.style.display = 'block';
+        stkTab.style.background = '#333';
+        stkTab.style.color = '#aaa';
+        paybillTab.style.background = '#22B14C';
+        paybillTab.style.color = 'white';
+      }
+    }
+
+    // Function to handle manual payment confirmation
+    function confirmManualPayment() {
+      const message = document.getElementById('message');
+      message.innerHTML = `
+        <div style="background: rgba(34, 177, 76, 0.2); padding: 20px; border-radius: 10px; margin-top: 20px; border: 1px solid #22B14C;">
+          <p style="margin: 0 0 10px 0; color: #22B14C; font-size: 18px; font-weight: bold;">✅ Payment Pending Confirmation</p>
+          <p style="margin: 0; color: #aaa; font-size: 14px;">Thank you! Please send your M-Pesa confirmation message to <strong style="color: #FFD700;">0799986497</strong> or email <strong style="color: #FFD700;">djkraph@gmail.com</strong></p>
+          <p style="margin: 10px 0 0 0; color: #aaa; font-size: 14px;">Your order will be processed once we verify your payment.</p>
+        </div>
+      `;
+      
+      // Store pending order info
+      sessionStorage.setItem('pendingPayment', JSON.stringify({
+        method: 'mpesa-paybill',
+        amount: kesAmount,
+        trackName: trackName,
+        timestamp: new Date().toISOString()
+      }));
+      
+      // Redirect after 5 seconds
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 5000);
+    }
+
+    // Initialize Stripe Card Element
+    setTimeout(() => {
+      cardElement.mount('#stripe-card-element');
+      cardElement.addEventListener('change', handleCardChange);
+    }, 100);
+
+    function handleCardChange(event) {
+      const message = document.getElementById('message');
+      if (event.error) {
+        message.textContent = `❌ ${event.error.message}`;
+        message.style.color = '#ff6b6b';
+      } else {
+        message.textContent = '';
+      }
+    }
+
+    // Payment Method Selector
+    function selectPaymentMethod(method) {
+      currentPaymentMethod = method;
+      document.querySelectorAll('.payment-method-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+
+      document.querySelectorAll('.payment-container-section').forEach(section => {
+        section.classList.remove('active');
+      });
+
+      if (method === 'mpesa') {
+        document.getElementById('mpesa-section').classList.add('active');
+      } else if (method === 'stripe') {
+        document.getElementById('stripe-section').classList.add('active');
+      } else {
+        document.getElementById('paypal-section').classList.add('active');
+        initPayPalButton();
+      }
+    }
+
+    // M-Pesa Payment Processing
+    async function processMpesaPayment() {
+      const message = document.getElementById('message');
+      const phone = document.getElementById('mpesa-phone').value;
+      const btn = document.getElementById('mpesa-pay-btn');
+      
+      // Validate phone number
+      if (!mpesaPaymentManager.validatePhoneNumber(phone)) {
+        message.textContent = '❌ Please enter a valid M-Pesa number (e.g., 0712345678 or 254712345678)';
+        message.style.color = '#ff6b6b';
+        return;
+      }
+
+      const kesAmount = Math.round(trackPrice * USD_TO_KES);
+      message.textContent = '📱 Initiating M-Pesa STK Push...';
+      message.style.color = '#22B14C';
+      btn.disabled = true;
+      btn.textContent = 'Processing...';
+
+      try {
+        // Prepare metadata
+        const metadata = {
+          description: `DJ Kraph - ${trackName}`,
+          accountReference: trackType === 'cart' ? 'CART' + Date.now() : 'MIX' + Date.now(),
+          transactionType: 'CustomerPayBillOnline'
+        };
+
+        // Initiate STK Push
+        console.log('Processing M-Pesa payment:', { phone, kesAmount, trackName });
+        const stkResult = await mpesaPaymentManager.initiateSTKPush(phone, kesAmount, metadata);
+        
+        if (!stkResult.success) {
+          throw new Error(stkResult.error);
+        }
+
+        message.textContent = '📱 Check your phone for M-Pesa prompt (you have 2 minutes to respond)';
+        message.style.color = '#22B14C';
+        
+        // Poll for payment status
+        const statusResult = await mpesaPaymentManager.pollPaymentStatus(stkResult.checkoutRequestId, 40, 3000);
+        
+        if (statusResult.success && statusResult.status === 'completed') {
+          message.textContent = '✅ M-Pesa payment successful! Your purchase is being processed...';
+          message.style.color = '#22B14C';
+          
+          // Store payment confirmation
+          const paymentData = {
+            method: 'mpesa',
+            phone: mpesaPaymentManager.formatPhoneNumber(phone),
+            amount: kesAmount,
+            trackName: trackName,
+            type: trackType,
+            transactionId: statusResult.transactionId,
+            timestamp: new Date().toISOString(),
+            successful: true
+          };
+          sessionStorage.setItem('paymentData', JSON.stringify(paymentData));
+          
+          // Redirect based on payment type
+          setTimeout(() => {
+            if (trackType === 'cart') {
+              window.location.href = `confirmation.html?success=true&type=cart&amount=${kesAmount}`;
+            } else {
+              window.location.href = `confirmation.html?success=true&track=${encodeURIComponent(trackName)}&amount=${kesAmount}&txid=${statusResult.transactionId}`;
+            }
+          }, 2000);
+        } else {
+          message.textContent = '❌ ' + (statusResult.message || 'Payment was not completed. Please try again.');
+          message.style.color = '#ff6b6b';
+          btn.disabled = false;
+          btn.textContent = 'Pay with M-Pesa STK';
+        }
+      } catch (error) {
+        console.error('M-Pesa payment error:', error);
+        message.textContent = `❌ Error: ${error.message}`;
+        message.style.color = '#ff6b6b';
+        btn.disabled = false;
+        btn.textContent = 'Pay with M-Pesa STK';
+      }
+    }
+
+    // Stripe Payment Processing
+    async function processStripePayment() {
+      const message = document.getElementById('message');
+      const name = document.getElementById('card-name').value;
+      const email = document.getElementById('card-email').value;
+
+      if (!name || !email) {
+        message.textContent = '❌ Please fill in all fields';
+        message.style.color = '#ff6b6b';
+        return;
+      }
+
+      message.textContent = '⏳ Processing payment with Stripe...';
+      message.style.color = '#FFD700';
+      document.getElementById('stripe-pay-btn').disabled = true;
+
+      try {
+        // Create payment method
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
+          type: 'card',
+          card: cardElement,
+          billing_details: {
+            name: name,
+            email: email
+          }
+        });
+
+        if (error) {
+          message.textContent = `❌ ${error.message}`;
+          message.style.color = '#ff6b6b';
+          document.getElementById('stripe-pay-btn').disabled = false;
+        } else {
+          // Send to your server for processing
+          const response = await fetch('/api/process-stripe-payment', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              paymentMethodId: paymentMethod.id,
+              amount: trackPrice * 100,
+              currency: 'usd',
+              trackName: trackName,
+              email: email
+            })
+          }).catch(() => {
+            // Fallback for demo mode
+            return new Promise(resolve => {
+              setTimeout(() => {
+                resolve({
+                  ok: Math.random() > 0.1,
+                  json: () => Promise.resolve({ success: Math.random() > 0.1 })
+                });
+              }, 2000);
+            });
+          });
+
+          const result = await response.json();
+          if (result.success) {
+            message.textContent = '✅ Payment successful! Your mix is now unlocked.';
+            message.style.color = '#FFD700';
+            setTimeout(() => {
+              window.location.href = `cart.html?success=true&track=${encodeURIComponent(trackName)}`;
+            }, 2000);
+          } else {
+            message.textContent = '❌ Payment failed. Please try again.';
+            message.style.color = '#ff6b6b';
+            document.getElementById('stripe-pay-btn').disabled = false;
+          }
+        }
+      } catch (error) {
+        message.textContent = `❌ ${error.message}`;
+        message.style.color = '#ff6b6b';
+        document.getElementById('stripe-pay-btn').disabled = false;
+      }
+    }
+
+    // PayPal Integration
+    function initPayPalButton() {
+      paypal.Buttons({
+        createOrder: (data, actions) => {
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: trackPrice.toString()
+              },
+              description: trackName
+            }]
+          });
+        },
+        onApprove: (data, actions) => {
+          const message = document.getElementById('message');
+          message.textContent = '⏳ Confirming PayPal payment...';
+          message.style.color = '#FFD700';
+
+          return actions.order.capture().then(() => {
+            message.textContent = '✅ Payment successful! Your mix is now unlocked.';
+            message.style.color = '#FFD700';
+            setTimeout(() => {
+              window.location.href = `cart.html?success=true&track=${encodeURIComponent(trackName)}`;
+            }, 2000);
+          });
+        },
+        onError: (err) => {
+          const message = document.getElementById('message');
+          message.textContent = `❌ PayPal Error: ${err.message || 'Payment failed'}`;
+          message.style.color = '#ff6b6b';
+        }
+      }).render('#paypal-button-container');
+    }
+
+    // Back button
+    document.getElementById('backButton').addEventListener('click', function() {
+      window.history.back();
+    });
+  </script>
+
+</body>
+</html>

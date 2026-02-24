@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ Kraph - Purchase Confirmation</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .confirmation-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #121212;
+            padding: 20px;
+        }
+
+        .confirmation-card {
+            background: #181818;
+            padding: 50px;
+            border-radius: 15px;
+            border: 2px solid #22B14C;
+            box-shadow: 0 20px 60px rgba(34, 177, 76, 0.3);
+            text-align: center;
+            max-width: 500px;
+            width: 100%;
+            color: white;
+            animation: slideUp 0.5s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .success-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: scaleIn 0.5s ease-out 0.2s backwards;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+            }
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .confirmation-card h1 {
+            color: #22B14C;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .confirmation-card p {
+            color: #aaa;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .order-details {
+            background: #1e1e1e;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #22B14C;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .order-details h3 {
+            color: #22B14C;
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+            color: #aaa;
+        }
+
+        .order-item.total {
+            border: none;
+            font-weight: bold;
+            color: #22B14C;
+            font-size: 18px;
+            padding-top: 15px;
+            margin-top: 15px;
+        }
+
+        .order-number {
+            background: rgba(34, 177, 76, 0.1);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            color: #22B14C;
+            font-weight: bold;
+        }
+
+        .next-steps {
+            background: rgba(34, 177, 76, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid #22B14C;
+        }
+
+        .next-steps h3 {
+            color: #22B14C;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .step {
+            text-align: left;
+            margin-bottom: 12px;
+            color: #aaa;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+
+        .step-number {
+            color: #22B14C;
+            font-weight: bold;
+            min-width: 25px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            flex-direction: column;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #22B14C;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #1a9840;
+            box-shadow: 0 0 20px rgba(34, 177, 76, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #22B14C;
+            border: 2px solid #22B14C;
+        }
+
+        .btn-secondary:hover {
+            background: #22B14C;
+            color: white;
+        }
+
+        .contact-support {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: #999;
+            font-size: 13px;
+        }
+
+        .contact-support a {
+            color: #22B14C;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="confirmation-container">
+        <div class="confirmation-card">
+            <div class="success-icon">✅</div>
+            
+            <h1>Purchase Successful!</h1>
+            <p>Thank you for your purchase. Your mixes are ready to download.</p>
+
+            <div class="order-number">
+                Order ID: <span id="orderId">ORD-2026-0001</span>
+            </div>
+
+            <div class="order-details">
+                <h3>Order Summary</h3>
+                <div id="orderSummary"></div>
+                <div class="order-item total">
+                    <span>Total Paid:</span>
+                    <span id="totalPaid">KSh 0</span>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h3>📋 Next Steps</h3>
+                <div class="step">
+                    <span class="step-number">1</span>
+                    <span>Check your email for download links and receipt</span>
+                </div>
+                <div class="step">
+                    <span class="step-number">2</span>
+                    <span>Download your mixes and add them to your library</span>
+                </div>
+                <div class="step">
+                    <span class="step-number">3</span>
+                    <span>Leave a review to help other DJs discover great mixes</span>
+                </div>
+                <div class="step">
+                    <span class="step-number">4</span>
+                    <span>Share your favorite mixes with the DJ community</span>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button class="btn btn-primary" onclick="window.location.href='dashboard.html'">📚 Go to My Library</button>
+                <button class="btn btn-secondary" onclick="window.location.href='index.html'">🏠 Back to Homepage</button>
+            </div>
+
+            <div class="contact-support">
+                Need help? <a href="faq.html">Check our FAQ</a> or <a href="mailto:support@djkraph.com">contact support</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/cartManager.js"></script>
+    <script src="js/mixManager.js"></script>
+    <script src="js/authManager.js"></script>
+    <script src="js/featureManager.js"></script>
+    <script src="js/advancedFeaturesManager.js"></script>
+
+    <script>
+        function initConfirmation() {
+            const items = sessionStorage.getItem('checkout_items');
+            const total = sessionStorage.getItem('checkout_total');
+            const paymentData = sessionStorage.getItem('paymentData');
+            
+            if (!items || !total) {
+                document.querySelector('.confirmation-card').innerHTML = `
+                    <h1>No purchase found</h1>
+                    <p>It looks like there's no recent purchase. <a href="index.html" style="color: #22B14C;">Go back home</a></p>
+                `;
+                return;
+            }
+
+            const parsedItems = JSON.parse(items);
+            const totalAmount = parseInt(total);
+            const payment = paymentData ? JSON.parse(paymentData) : null;
+
+            document.getElementById('orderId').textContent = `ORD-${new Date().getTime()}`;
+            document.getElementById('totalPaid').textContent = `KSh ${totalAmount.toLocaleString()}`;
+
+            // Build order summary
+            let summaryHTML = parsedItems.map(item => `
+                <div class="order-item">
+                    <span>${item.title}</span>
+                    <span>KSh ${item.price.toLocaleString()}</span>
+                </div>
+            `).join('');
+
+            // Add payment method info if available
+            if (payment) {
+                summaryHTML += `
+                    <div class="order-item" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #333;">
+                        <span><strong>Payment Method</strong></span>
+                        <span><strong>M-Pesa STK Push</strong></span>
+                    </div>
+                    <div class="order-item">
+                        <span>Phone Number</span>
+                        <span>${payment.phone.slice(0, -4) + '****'}</span>
+                    </div>
+                    ${payment.transactionId ? `
+                    <div class="order-item">
+                        <span>Transaction ID</span>
+                        <span style="font-family: monospace; font-size: 12px;">${payment.transactionId}</span>
+                    </div>
+                    ` : ''}
+                    <div class="order-item">
+                        <span>Payment Time</span>
+                        <span>${new Date(payment.timestamp).toLocaleString('en-KE')}</span>
+                    </div>
+                `;
+            }
+
+            document.getElementById('orderSummary').innerHTML = summaryHTML;
+
+            // Save to user's purchases
+            if (window.authManager?.isLoggedIn()) {
+                parsedItems.forEach(item => {
+                    if (!authManager.currentUser.purchases) {
+                        authManager.currentUser.purchases = [];
+                    }
+                    authManager.currentUser.purchases.push(item.id);
+                });
+                
+                // Save payment information
+                if (!authManager.currentUser.payments) {
+                    authManager.currentUser.payments = [];
+                }
+                authManager.currentUser.payments.push({
+                    method: payment ? payment.method : 'unknown',
+                    amount: totalAmount,
+                    date: new Date().toISOString(),
+                    items: parsedItems.map(i => i.id),
+                    transactionId: payment ? payment.transactionId : null
+                });
+                
+                authManager.saveCurrentUser();
+
+                // Record sale
+                if (window.analyticsManager) {
+                    parsedItems.forEach(item => {
+                        analyticsManager.trackMixPurchase(item.id, authManager.currentUser.id, item.price);
+                    });
+                    if (window.advancedFeaturesManager) {
+                        advancedFeaturesManager.checkAchievements(authManager.currentUser.id);
+                    }
+                }
+            }
+
+            // Clear session data
+            cartManager.clearCart();
+            sessionStorage.removeItem('checkout_total');
+            sessionStorage.removeItem('checkout_items');
+            sessionStorage.removeItem('paymentData');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initConfirmation();
+        });
+    </script>
+</body>
+</html>

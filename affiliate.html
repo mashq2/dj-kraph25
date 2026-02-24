@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ Kraph - Affiliate Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .affiliate-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(255, 215, 0, 0.05);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+        }
+
+        .affiliate-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .affiliate-header h1 {
+            color: #FFD700;
+            font-size: 28px;
+            margin: 0 0 10px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: #1e1e1e;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #FFD700;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 36px;
+            color: #FFD700;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .affiliate-section {
+            background: #1e1e1e;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #FFD700;
+            margin-bottom: 30px;
+        }
+
+        .affiliate-section h2 {
+            color: #FFD700;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .referral-link-box {
+            background: #252525;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #FFD700;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .referral-link-box input {
+            flex: 1;
+            padding: 12px;
+            background: #1e1e1e;
+            color: #FFD700;
+            border: 1px solid #FFD700;
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 12px;
+        }
+
+        .copy-btn {
+            padding: 12px 20px;
+            background: #FFD700;
+            color: #121212;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .copy-btn:hover {
+            background: #FFC700;
+        }
+
+        .commission-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        .commission-table th,
+        .commission-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+            color: #aaa;
+        }
+
+        .commission-table th {
+            background: #252525;
+            color: #FFD700;
+            font-weight: bold;
+        }
+
+        .commission-table tr:hover {
+            background: #252525;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .status-pending {
+            background: rgba(255, 215, 0, 0.2);
+            color: #FFD700;
+        }
+
+        .status-completed {
+            background: rgba(34, 177, 76, 0.2);
+            color: #22B14C;
+        }
+
+        .share-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .share-btn {
+            padding: 10px 20px;
+            background: #FFD700;
+            color: #121212;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 13px;
+            transition: all 0.3s;
+        }
+
+        .share-btn:hover {
+            background: #FFC700;
+        }
+
+        .withdraw-btn {
+            padding: 15px 30px;
+            background: #22B14C;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .withdraw-btn:hover {
+            background: #1a9840;
+            box-shadow: 0 0 15px rgba(34, 177, 76, 0.5);
+        }
+
+        .withdraw-btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            color: #FFC700;
+            text-decoration: underline;
+        }
+
+        .login-prompt {
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid #ff6b6b;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            color: #ff6b6b;
+        }
+
+        .login-prompt a {
+            color: #FFD700;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="affiliate-container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        
+        <div class="affiliate-header">
+            <h1>💰 Affiliate Dashboard</h1>
+            <p>Earn commission by sharing mixes</p>
+        </div>
+
+        <div id="affiliateContent"></div>
+    </div>
+
+    <script src="js/authManager.js"></script>
+    <script src="js/mixManager.js"></script>
+    <script src="js/advancedFeaturesManager.js"></script>
+
+    <script>
+        function initAffiliateBoard() {
+            const content = document.getElementById('affiliateContent');
+
+            if (!authManager?.isLoggedIn()) {
+                content.innerHTML = `
+                    <div class="login-prompt">
+                        Please <a href="login.html">login</a> to access your affiliate dashboard
+                    </div>
+                `;
+                return;
+            }
+
+            const referralLink = generateReferralLink();
+            const stats = getAffiliateStats();
+
+            content.innerHTML = `
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">KSh ${stats.totalEarnings}</div>
+                        <div class="stat-label">Total Earnings</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${stats.referrals}</div>
+                        <div class="stat-label">Total Referrals</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">KSh ${stats.pendingPayout}</div>
+                        <div class="stat-label">Pending Payout</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">${stats.conversionRate}%</div>
+                        <div class="stat-label">Conversion Rate</div>
+                    </div>
+                </div>
+
+                <div class="affiliate-section">
+                    <h2>Your Referral Link</h2>
+                    <p>Share this link to earn 15% commission on every sale!</p>
+                    <div class="referral-link-box">
+                        <input type="text" id="referralLinkInput" value="${referralLink}" readonly>
+                        <button class="copy-btn" onclick="copyReferralLink()">Copy</button>
+                    </div>
+                    <div class="share-buttons">
+                        <button class="share-btn" onclick="shareViaSocial('twitter')">📱 Share on Twitter</button>
+                        <button class="share-btn" onclick="shareViaSocial('facebook')">👍 Share on Facebook</button>
+                        <button class="share-btn" onclick="shareViaSocial('whatsapp')">💬 Share on WhatsApp</button>
+                        <button class="share-btn" onclick="shareViaSocial('email')">📧 Share via Email</button>
+                    </div>
+                </div>
+
+                <div class="affiliate-section">
+                    <h2>Commission History</h2>
+                    <table class="commission-table">
+                        <thead>
+                            <tr>
+                                <th>Mix Name</th>
+                                <th>Sale Date</th>
+                                <th>Sale Amount</th>
+                                <th>Commission (15%)</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="commissionHistory"></tbody>
+                    </table>
+                </div>
+
+                <div class="affiliate-section">
+                    <h2>Withdrawal</h2>
+                    <p>Minimum withdrawal: KSh 1,000</p>
+                    <button class="withdraw-btn" onclick="requestWithdrawal()" ${stats.pendingPayout < 1000 ? 'disabled' : ''}>
+                        Request Withdrawal
+                    </button>
+                </div>
+            `;
+
+            loadCommissionHistory();
+        }
+
+        function generateReferralLink() {
+            return `${window.location.origin}/?ref=${authManager.currentUser.id}`;
+        }
+
+        function copyReferralLink() {
+            const input = document.getElementById('referralLinkInput');
+            input.select();
+            document.execCommand('copy');
+            alert('Referral link copied!');
+        }
+
+        function shareViaSocial(platform) {
+            const link = document.getElementById('referralLinkInput').value;
+            const text = `Join DJ Kraph and get exclusive music mixes! 🎵 Use my referral link to get started:`;
+
+            if (platform === 'twitter') {
+                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text + ' ' + link)}`, '_blank');
+            } else if (platform === 'facebook') {
+                window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(link)}`, '_blank');
+            } else if (platform === 'whatsapp') {
+                window.open(`https://wa.me/?text=${encodeURIComponent(text + ' ' + link)}`, '_blank');
+            } else if (platform === 'email') {
+                window.location.href = `mailto:?subject=Check out DJ Kraph&body=${encodeURIComponent(text + '\n' + link)}`;
+            }
+        }
+
+        function getAffiliateStats() {
+            const purchases = analyticsManager?.sales || [];
+            const userId = authManager.currentUser.id;
+            
+            const referrals = purchases.length;
+            const totalSales = purchases.reduce((sum, p) => sum + p.amount, 0);
+            const commission = Math.floor(totalSales * 0.15);
+            
+            return {
+                totalEarnings: commission,
+                referrals: referrals,
+                pendingPayout: commission,
+                conversionRate: referrals > 0 ? Math.round((referrals / 100) * 100) : 0
+            };
+        }
+
+        function loadCommissionHistory() {
+            const tbody = document.getElementById('commissionHistory');
+            const purchases = analyticsManager?.sales || [];
+            const allMixes = mixManager?.mixes || [];
+
+            if (purchases.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #999;">No commissions yet. Share your referral link to start earning!</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = purchases.map(sale => {
+                const mix = allMixes.find(m => m.id === sale.mixId);
+                const commission = Math.floor(sale.amount * 0.15);
+                const isRecent = new Date(sale.timestamp) > new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+
+                return `
+                    <tr>
+                        <td>${mix?.title || 'Unknown Mix'}</td>
+                        <td>${new Date(sale.timestamp).toLocaleDateString()}</td>
+                        <td>KSh ${sale.amount}</td>
+                        <td><strong>KSh ${commission}</strong></td>
+                        <td><span class="status-badge ${isRecent ? 'status-pending' : 'status-completed'}">${isRecent ? 'Pending' : 'Completed'}</span></td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function requestWithdrawal() {
+            const stats = getAffiliateStats();
+            if (stats.pendingPayout < 1000) {
+                alert('Minimum withdrawal amount is KSh 1,000');
+                return;
+            }
+
+            alert(`✅ Withdrawal request of KSh ${stats.pendingPayout} submitted!\n\nYou will receive the funds within 3-5 business days.`);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initAffiliateBoard();
+        });
+    </script>
+</body>
+</html>

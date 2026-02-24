@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ Kraph - Mix Details</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .mix-detail-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(255, 215, 0, 0.05);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+        }
+
+        .mix-header {
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .mix-cover {
+            width: 100%;
+            height: 400px;
+            border-radius: 15px;
+            object-fit: cover;
+            border: 3px solid #FFD700;
+            box-shadow: 0 10px 40px rgba(255, 215, 0, 0.3);
+        }
+
+        .mix-details {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .mix-details h1 {
+            color: #FFD700;
+            font-size: 36px;
+            margin: 0 0 10px 0;
+        }
+
+        .mix-details .artist {
+            color: #aaa;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+
+        .mix-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .meta-item {
+            background: #1e1e1e;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 3px solid #FFD700;
+        }
+
+        .meta-label {
+            color: #999;
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .meta-value {
+            color: #FFD700;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: #FFD700;
+            color: #121212;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background: #FFC700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #FFD700;
+            border: 2px solid #FFD700;
+        }
+
+        .btn-secondary:hover {
+            background: #FFD700;
+            color: #121212;
+        }
+
+        .section {
+            background: #1e1e1e;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #FFD700;
+            margin-bottom: 30px;
+        }
+
+        .section h2 {
+            color: #FFD700;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .tracklist {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .tracklist li {
+            padding: 12px;
+            border-bottom: 1px solid #333;
+            color: #aaa;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tracklist li:last-child {
+            border-bottom: none;
+        }
+
+        .track-number {
+            color: #FFD700;
+            font-weight: bold;
+            min-width: 30px;
+        }
+
+        .recommendations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+        }
+
+        .rec-card {
+            background: #252525;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #333;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .rec-card:hover {
+            transform: translateY(-5px);
+            border-color: #FFD700;
+        }
+
+        .rec-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .rec-card-content {
+            padding: 15px;
+        }
+
+        .rec-card h3 {
+            color: #FFD700;
+            margin: 0 0 5px 0;
+            font-size: 14px;
+        }
+
+        .rec-card p {
+            color: #999;
+            margin: 3px 0;
+            font-size: 12px;
+        }
+
+        .share-section {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .share-btn {
+            padding: 10px 20px;
+            background: #1e1e1e;
+            color: #FFD700;
+            border: 1px solid #FFD700;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .share-btn:hover {
+            background: #FFD700;
+            color: #121212;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            color: #FFC700;
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .mix-header {
+                grid-template-columns: 1fr;
+            }
+
+            .mix-meta-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mix-detail-container">
+        <a href="index.html" class="back-link">← Back to Mixes</a>
+        
+        <div id="mixDetailContent"></div>
+    </div>
+
+    <script src="js/mixManager.js"></script>
+    <script src="js/cartManager.js"></script>
+    <script src="js/advancedFeaturesManager.js"></script>
+    <script src="js/reviewsManager.js"></script>
+
+    <script>
+        function getMixIdFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            return parseInt(params.get('id'));
+        }
+
+        function loadMixDetails() {
+            const mixId = getMixIdFromURL();
+            const allMixes = mixManager?.mixes || [];
+            const mix = allMixes.find(m => m.id === mixId);
+
+            if (!mix) {
+                document.getElementById('mixDetailContent').innerHTML = `
+                    <div style="text-align: center; padding: 60px; color: #999;">
+                        <h2>Mix not found</h2>
+                        <p><a href="index.html" style="color: #FFD700;">Browse all mixes</a></p>
+                    </div>
+                `;
+                return;
+            }
+
+            // Track view
+            if (advancedFeaturesManager) {
+                advancedFeaturesManager.trackMixView(mixId);
+            }
+
+            const recommendations = advancedFeaturesManager?.recommendMixes(mixId, 4) || [];
+
+            document.getElementById('mixDetailContent').innerHTML = `
+                <div class="mix-header">
+                    <img src="${mix.image}" alt="${mix.title}" class="mix-cover">
+                    <div class="mix-details">
+                        <h1>${mix.title}</h1>
+                        <p class="artist">by ${mix.artist}</p>
+                        
+                        <div class="mix-meta-grid">
+                            <div class="meta-item">
+                                <div class="meta-label">Price</div>
+                                <div class="meta-value">KSh ${mix.price}</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Genre</div>
+                                <div class="meta-value">${mix.genre || 'Mixed'}</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">BPM</div>
+                                <div class="meta-value">${mix.bpm || '120'}</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Duration</div>
+                                <div class="meta-value">${mix.duration || 'N/A'}</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Rating</div>
+                                <div class="meta-value">⭐ ${mix.averageRating || 0}</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Reviews</div>
+                                <div class="meta-value">${mix.reviewCount || 0}</div>
+                            </div>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="btn btn-primary" onclick="addToCartAndNotify()">🛒 Add to Cart</button>
+                            <button class="btn btn-secondary" onclick="addToWishlist()">♡ Wishlist</button>
+                            <button class="btn btn-secondary" onclick="shareOnSocial()">📤 Share</button>
+                        </div>
+                    </div>
+                </div>
+
+                ${mix.description ? `
+                    <div class="section">
+                        <h2>About This Mix</h2>
+                        <p style="color: #aaa; line-height: 1.6;">${mix.description}</p>
+                    </div>
+                ` : ''}
+
+                ${mix.trackList && mix.trackList.length > 0 ? `
+                    <div class="section">
+                        <h2>📝 Track List (${mix.trackList.length} tracks)</h2>
+                        <ul class="tracklist">
+                            ${mix.trackList.map((track, idx) => `
+                                <li>
+                                    <span class="track-number">${String(idx + 1).padStart(2, '0')}</span>
+                                    <span>${track}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
+                    </div>
+                ` : ''}
+
+                ${recommendations.length > 0 ? `
+                    <div class="section">
+                        <h2>🎵 You Might Also Like</h2>
+                        <div class="recommendations-grid">
+                            ${recommendations.map(recMix => `
+                                <div class="rec-card" onclick="window.location.href='mix-detail.html?id=${recMix.id}'">
+                                    <img src="${recMix.image}" alt="${recMix.title}">
+                                    <div class="rec-card-content">
+                                        <h3>${recMix.title}</h3>
+                                        <p>${recMix.artist}</p>
+                                        <p>KSh ${recMix.price}</p>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                ` : ''}
+            `;
+        }
+
+        function addToCartAndNotify() {
+            const mixId = getMixIdFromURL();
+            const allMixes = mixManager?.mixes || [];
+            const mix = allMixes.find(m => m.id === mixId);
+            
+            if (mix && cartManager) {
+                cartManager.addToCart(mix);
+                alert('✅ Added to cart!');
+            }
+        }
+
+        function addToWishlist() {
+            const mixId = getMixIdFromURL();
+            if (authManager?.isLoggedIn()) {
+                authManager.addToWishlist(mixId);
+                alert('❤️ Added to wishlist!');
+            } else {
+                alert('Please login to add to wishlist');
+            }
+        }
+
+        function shareOnSocial() {
+            const mixId = getMixIdFromURL();
+            const allMixes = mixManager?.mixes || [];
+            const mix = allMixes.find(m => m.id === mixId);
+            
+            if (socialShareManager && mix) {
+                const shareLink = socialShareManager.generateShareLink(mixId, mix.title);
+                
+                const choice = prompt('Share via:\\n1. Twitter\\n2. Facebook\\n3. WhatsApp\\n4. Copy Link\\n\\nEnter number:');
+                
+                if (choice === '1') socialShareManager.shareToTwitter(mix.title, shareLink);
+                else if (choice === '2') socialShareManager.shareToFacebook(shareLink);
+                else if (choice === '3') socialShareManager.shareToWhatsApp(mix.title, shareLink);
+                else if (choice === '4') socialShareManager.copyToClipboard(shareLink);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMixDetails();
+        });
+    </script>
+</body>
+</html>

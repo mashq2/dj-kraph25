@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DJ Kraph Premium</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<!-- HEADER WITH LOGO -->
+<header class="logo-header">
+  <img src="https://yt3.googleusercontent.com/vH-O_ETTR-NbpBOAm2JFOxvNl8GiRrfikuX3Aa9cBD6YfaDpStOpH1yFD4IytynhD0WniJE-TvY=s160-c-k-c0x00ffffff-no-rj" alt="DJ Kraph Logo" class="logo">
+  
+  <nav class="navbar">
+    <div class="navbar-left">
+      <input type="text" id="searchInput" placeholder="🔍 Search mixes..." class="search-bar">
+    </div>
+    <div class="navbar-right">
+      <div id="navAuth"></div>
+      <a href="charts.html" style="color: #FFD700; text-decoration: none; margin-right: 15px; font-weight: bold; font-size: 13px;">🏆 Charts</a>
+      <a href="affiliate.html" style="color: #FFD700; text-decoration: none; margin-right: 15px; font-weight: bold; font-size: 13px;">💰 Affiliate</a>
+      <a href="dashboard.html" style="color: #FFD700; text-decoration: none; margin-right: 15px; font-weight: bold; font-size: 13px;">📊 Dashboard</a>
+      <a href="cart.html" style="color: #FFD700; text-decoration: none; margin-right: 15px; font-weight: bold; position: relative; font-size: 13px;">
+        🛒 Cart
+        <span id="cartCount" style="display: none; position: absolute; top: -8px; right: -8px; background: #ff6b6b; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">0</span>
+      </a>
+      <a href="faq.html" style="color: #FFD700; text-decoration: none; margin-right: 15px; font-weight: bold; font-size: 13px;">❓ FAQ</a>
+      <button id="soundToggle" style="background: transparent; border: none; font-size: 18px; cursor: pointer; color: #FFD700;" title="Sound FX">🔊</button>
+      <button id="themeToggle" style="background: transparent; border: none; font-size: 20px; cursor: pointer; color: #FFD700;">🌙</button>
+    </div>
+  </nav>
+</header>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-content">
+      <!-- GOJO CHARACTER (3D ANIME) -->
+      <div class="gojo-character">
+        <div class="gojo-aura"></div>
+        
+        <!-- HAIR -->
+        <div class="gojo-hair">
+          <div class="hair-top"></div>
+          <div class="hair-side-left"></div>
+          <div class="hair-side-right"></div>
+          <div class="hair-spikes"></div>
+        </div>
+        
+        <!-- HEAD -->
+        <div class="gojo-head">
+          <div class="gojo-face">
+            <!-- EYES -->
+            <div class="gojo-eye-left">
+              <div class="eye-shine"></div>
+            </div>
+            <div class="gojo-eye-right">
+              <div class="eye-shine"></div>
+            </div>
+            
+            <!-- SMILE -->
+            <div class="gojo-smile"></div>
+          </div>
+          
+          <!-- BLINDFOLD EFFECT (but eyes visible with smile) -->
+          <div class="gojo-expression"></div>
+        </div>
+        
+        <!-- BODY -->
+        <div class="gojo-body">
+          <div class="gojo-torso"></div>
+          
+          <!-- POINTING ARM -->
+          <div class="gojo-arm-pointing">
+            <div class="arm-upper"></div>
+            <div class="arm-lower"></div>
+            <div class="pointing-hand">
+              <div class="pointing-finger"></div>
+            </div>
+          </div>
+          
+          <!-- OTHER ARM -->
+          <div class="gojo-arm-other">
+            <div class="arm-upper-other"></div>
+            <div class="arm-lower-other"></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="title-container">
+        <h1>DJ Kraph</h1>
+        <p>Master Your Craft</p>
+        <div class="hero-cta">
+          <a href="#premium" class="btn-hero primary">Explore Mixes</a>
+          <a href="cart.html" class="btn-hero ghost">Open Cart</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><span>150+</span> Mixes</div>
+          <div class="hero-stat"><span>4.9</span> Rating</div>
+          <div class="hero-stat"><span>24/7</span> Drops</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTIST SPOTLIGHT -->
+  <section class="spotlight">
+    <div class="spotlight-card">
+      <div class="spotlight-copy">
+        <div class="spotlight-kicker">Artist Spotlight</div>
+        <h2>DJ Kraph</h2>
+        <p>Afro-house energy, hip-hop cuts, and crowd-first pacing. Every mix is designed to move a room and keep the vibe locked.</p>
+        <div class="spotlight-stats">
+          <div><span>1.2M</span> Total Plays</div>
+          <div><span>150+</span> Mix Drops</div>
+          <div><span>4.9</span> Avg Rating</div>
+        </div>
+        <div class="spotlight-cta">
+          <a class="btn-hero primary" href="#premium">Explore Premium Mixes</a>
+          <a class="btn-hero ghost" href="charts.html">View Charts</a>
+        </div>
+      </div>
+      <div class="spotlight-visual">
+        <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=900&h=1100&fit=crop" alt="DJ Kraph Spotlight">
+        <div class="spotlight-badge">Live Sets Weekly</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MINI CHARTS PREVIEW -->
+  <section class="charts-mini">
+    <div class="charts-header">
+      <h2 class="section-title">Trending Charts</h2>
+      <a class="btn-hero ghost" href="charts.html">Open Full Charts</a>
+    </div>
+    <div class="chart-list" id="chartList"></div>
+  </section>
+
+  <!-- REVIEWS WALL -->
+  <section class="review-wall">
+    <div class="charts-header">
+      <h2 class="section-title">Listener Reviews</h2>
+      <div class="review-summary" id="reviewSummary">4.9 average • 1,200+ reviews</div>
+    </div>
+    <div class="review-grid" id="reviewGrid"></div>
+  </section>
+
+  <!-- LEAVE A REVIEW -->
+  <section class="review-section">
+    <h2 class="section-title">Leave a Review</h2>
+    <div id="reviewMessage" class="message"></div>
+    <form id="reviewForm">
+      <label for="reviewMixId">Select Mix</label>
+      <select id="reviewMixId" required></select>
+
+      <label for="reviewRating">Rating</label>
+      <select id="reviewRating" required>
+        <option value="5">★★★★★ (5)</option>
+        <option value="4">★★★★☆ (4)</option>
+        <option value="3">★★★☆☆ (3)</option>
+        <option value="2">★★☆☆☆ (2)</option>
+        <option value="1">★☆☆☆☆ (1)</option>
+      </select>
+
+      <label for="reviewComment">Your Review</label>
+      <textarea id="reviewComment" rows="4" placeholder="Share your feedback" required></textarea>
+
+      <button type="submit" class="btn-primary">Submit Review</button>
+    </form>
+
+    <div id="reviewsContainer"></div>
+  </section>
+
+  <!--  MIX GRID -->
+  <div id="premium" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+    <h2 class="section-title">Premium Mixes</h2>
+    <a href="admin.html" style="color: #FFD700; text-decoration: none; font-weight: bold; padding: 10px 20px; border: 2px solid #FFD700; border-radius: 5px; transition: all 0.3s;">+ Add Mix</a>
+  </div>
+
+  <!-- Filter Section -->
+  <div class="filters-section">
+    <div class="filter-group">
+      <label for="genreFilter">Genre:</label>
+      <select id="genreFilter" class="filter-select">
+        <option value="">All Genres</option>
+        <option value="House">House</option>
+        <option value="Hip-Hop">Hip-Hop</option>
+        <option value="Afrobeats">Afrobeats</option>
+        <option value="Electronic">Electronic</option>
+        <option value="Deep House">Deep House</option>
+        <option value="Techno">Techno</option>
+        <option value="Reggae">Reggae</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="priceFilter">Price Range:</label>
+      <select id="priceFilter" class="filter-select">
+        <option value="">All Prices</option>
+        <option value="0-500">KSh 0 - 500</option>
+        <option value="500-1000">KSh 500 - 1000</option>
+        <option value="1000-2000">KSh 1000 - 2000</option>
+        <option value="2000-999999">KSh 2000+</option>
+      </select>
+    </div>
+
+    <div class="filter-group">
+      <label for="ratingFilter">Rating:</label>
+      <select id="ratingFilter" class="filter-select">
+        <option value="">All Ratings</option>
+        <option value="4">★★★★+ (4+ stars)</option>
+        <option value="3">★★★+ (3+ stars)</option>
+        <option value="2">★★+ (2+ stars)</option>
+        <option value="1">★+ (1+ stars)</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="mix-grid" id="mixGrid">
+    <!-- Mixes loaded dynamically here -->
+  </div>
+
+  <!-- DJ GEAR SHOWCASE -->
+
+
+  <h2 class="section-title">� Music & Mixing Mastery</h2>
+  <div class="gear-grid">
+
+    <div class="gear-card">
+      <div class="gear-content">
+        <h3>🎧 The Art of Mixing</h3>
+        <p>Blend tracks like a storyteller. Shape smooth transitions, balance frequencies, and build energy that keeps the room locked in from the first drop to the last fade.</p>
+      </div>
+    </div>
+
+    <div class="gear-card">
+      <div class="gear-content">
+        <h3>🎹 Beat Matching Techniques</h3>
+        <p>Dial in BPM with confidence. Match tempos fast, blend rhythm cleanly, and keep the groove steady so your audience never leaves the floor.</p>
+      </div>
+    </div>
+
+    <div class="gear-card">
+      <div class="gear-content">
+        <h3>🎸 Genre Fusion & Creativity</h3>
+        <p>Fuse genres without losing the vibe. Cross Afrobeat, House, and Hip-hop to craft fresh moments that feel bold, modern, and unmistakably yours.</p>
+      </div>
+    </div>
+
+    <div class="gear-card">
+      <div class="gear-content">
+        <h3>📊 EQ & Sound Equalization</h3>
+        <p>Carve space with precision. Use EQ to clean the lows, brighten the highs, and give every element room to breathe for a polished, pro sound.</p>
+      </div>
+    </div>
+
+    <div class="gear-card">
+      <div class="gear-content">
+        <h3>🔊 Compression & Dynamics</h3>
+        <p>Control dynamics like a pro. Compress for punch, limit for control, and keep your mix powerful and consistent on any system.</p>
+      </div>
+    </div>
+
+    <div class="gear-card">
+      <div class="gear-content">
+        <h3>✨ Music Production Tips</h3>
+        <p>Elevate every detail. Stack layers, use effects with intention, and polish your track so it feels radio-ready and stage-proof.</p>
+      </div>
+    </div>
+
+    <div class="gear-card">
+      <div class="gear-content">
+        <h3>👥 Reading the Crowd</h3>
+        <p>Watch the room, not just the decks. Spot energy shifts early and pivot your selection to keep the vibe rising.</p>
+      </div>
+    </div>
+
+    <div class="gear-card">
+      <div class="gear-content">
+        <h3>🧭 Set Structure & Flow</h3>
+        <p>Plan peaks and cool-downs with intention. Build a journey that feels natural and keeps listeners hooked.</p>
+      </div>
+    </div>
+
+    <div class="gear-card">
+      <div class="gear-content">
+        <h3>🎛️ FX & Transitions</h3>
+        <p>Use filters, delays, and echoes tastefully. Add texture without clutter for clean, pro-grade transitions.</p>
+      </div>
+    </div>
+
+    <div class="gear-card">
+      <div class="gear-content">
+        <h3>🗂️ Playlist Curation</h3>
+        <p>Organize by mood, key, and tempo. Fast access to the right track makes your set feel effortless.</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="cursor-dot"></div>
+<div class="cursor-ring"></div>
+
+<!-- PLAYER -->
+<div class="player">
+  <img src="https://yt3.googleusercontent.com/vH-O_ETTR-NbpBOAm2JFOxvNl8GiRrfikuX3Aa9cBD6YfaDpStOpH1yFD4IytynhD0WniJE-TvY=s160-c-k-c0x00ffffff-no-rj" alt="DJ Logo" width="50" style="vertical-align: middle;">
+  <h4 id="nowPlaying">Nothing playing</h4>
+  
+  <div class="player-controls">
+    <button class="control-btn" id="prevBtn" title="Previous">⏮️</button>
+    <button class="control-btn" id="pauseBtn" title="Pause">⏸️</button>
+    <button class="control-btn" id="playBtn" title="Play">▶️</button>
+    <button class="control-btn" id="nextBtn" title="Next">⏭️</button>
+  </div>
+  
+  <img src="https://yt3.googleusercontent.com/vH-O_ETTR-NbpBOAm2JFOxvNl8GiRrfikuX3Aa9cBD6YfaDpStOpH1yFD4IytynhD0WniJE-TvY=s160-c-k-c0x00ffffff-no-rj" alt="DJ Kraph Logo" width="50" style="vertical-align: middle;">
+  
+  <audio id="audioPlayer" controls style="display:none;"></audio>
+  <video id="videoPlayer" controls style="display:none;"></video>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>DJ Kraph</h3>
+      <p>Master Your Craft. Premium music mixing tutorials and production guides.</p>
+    </div>
+    <div class="footer-section">
+      <h3>Quick Links</h3>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#premium">Premium Mixes</a></li>
+        <li><a href="#mastery">Music Mastery</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h3>Follow Me</h3>
+      <div class="social-links">
+        <a href="https://www.youtube.com/@djkraph_254" target="_blank" class="social-icon youtube" title="YouTube"><i class="fab fa-youtube"></i></a>
+        <a href="https://www.instagram.com/dj_kraph_official_254?igsh=MWdmMHBmOHE1aHFpaA==" target="_blank" class="social-icon instagram" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@djkraph?_r=1&_t=ZS-94B1C8aaCPq" target="_blank" class="social-icon tiktok" title="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://x.com/dj_kraph254" target="_blank" class="social-icon twitter" title="Twitter"><i class="fab fa-x-twitter"></i></a>
+        <a href="https://hearthis.at/dj-kraph" target="_blank" class="social-icon hearthis" title="HearThis.at"><i class="fas fa-headphones"></i></a>
+        <a href="https://www.mixcloud.com/Dj_Kraph254/" target="_blank" class="social-icon mixcloud" title="Mixcloud"><i class="fab fa-mixcloud"></i></a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2024 DJ Kraph. All rights reserved. | <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+  </div>
+</footer>
+
+<script src="js/sampleMixes.js"></script>
+<script src="js/player.js"></script>
+<script src="js/authManager.js"></script>
+<script src="js/cartManager.js"></script>
+<script src="js/searchFilterManager.js"></script>
+<script src="js/reviewsManager.js"></script>
+<script src="js/featureManager.js"></script>
+<script src="js/advancedFeaturesManager.js"></script>
+
+<script>
+// Load uploaded mixes dynamically
+document.addEventListener('DOMContentLoaded', function() {
+  const mixGrid = document.getElementById('mixGrid');
+  const STORAGE_KEY = 'djkraph_mixes';
+  const REVIEWS_STORAGE_KEY = 'djkraph_reviews';
+  
+  // Load mixes from localStorage
+  const mixes = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+  
+  // Initialize MixManager globally if not already done
+  if (!window.mixManager) {
+    window.mixManager = {
+      mixes: mixes,
+      saveMixes: function() {}
+    };
+  } else {
+    window.mixManager.mixes = mixes;
+  }
+  
+  displayMixes(mixes);
+  renderCharts(mixes);
+  renderReviews(mixes, REVIEWS_STORAGE_KEY);
+  populateReviewMixOptions(mixes);
+  syncReviewSection(mixes);
+  initCustomCursor();
+  initSoundFx();
+
+  // Update cart count
+  if (cartManager) {
+    cartManager.updateCartCount();
+  }
+
+  // Initialize search/filter
+  searchFilterManager?.applyFilters();
+});
+
+function displayMixes(mixes) {
+  const mixGrid = document.getElementById('mixGrid');
+  
+  if (mixes.length === 0) {
+    mixGrid.innerHTML = '<p style="color: #FFD700; text-align: center; grid-column: 1/-1; padding: 30px;">No mixes uploaded yet. Go to <a href="admin.html" style="color: #FFD700; text-decoration: underline;">Admin Dashboard</a> to add your first mix!</p>';
+    return;
+  }
+  
+  mixGrid.innerHTML = mixes.map(mix => `
+    <div class="mix-card" data-mix-id="${mix.id}" data-audio="${mix.audioUrl || ''}">
+      <div class="mix-image" style="background-image: url('${mix.image}'); background-size: cover; background-position: center; height: 200px; border-radius: 10px 10px 0 0; position: relative;">
+        <div class="genre-badge" style="position: absolute; top: 10px; right: 10px; background: #FFD700; color: #121212; padding: 5px 10px; border-radius: 20px; font-size: 12px; font-weight: bold;">${mix.genre || 'Mixed'}</div>
+        ${mix.audioUrl ? `
+          <div class="mix-preview">
+            <span class="mix-preview-icon"><i class="fa-solid fa-play"></i></span>
+            <span class="mix-preview-text">Preview</span>
+          </div>
+        ` : ''}
+      </div>
+      <div class="mix-content">
+        <h3>${mix.title}</h3>
+        <p class="mix-artist">${mix.artist}</p>
+        <p class="mix-meta">⏱️ ${mix.duration || 'N/A'} • ${mix.bpm || '120'} BPM</p>
+        <div class="rating-stars">★★★★☆ (${mix.reviewCount || 0} reviews)</div>
+        ${mix.trackList && mix.trackList.length > 0 ? `<p class="track-hint">📝 ${mix.trackList.length} tracks</p>` : ''}
+        <p class="mix-description">${mix.description || ''}</p>
+        <div class="mix-footer">
+          <span class="mix-price">KSh ${mix.price}</span>
+          <div class="mix-buttons">
+            <button onclick="addMixToCart(${mix.id})" class="btn-primary" style="flex: 1; padding: 10px; background: #FFD700; color: #121212; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; transition: all 0.3s;">🛒 Add to Cart</button>
+            <button onclick="authManager?.isLoggedIn() ? authManager.addToWishlist(${mix.id}) && alert('Added to wishlist!') : alert('Please login to add to wishlist')" class="btn-wishlist" style="padding: 10px 15px; background: #1e1e1e; color: #FFD700; border: 1px solid #FFD700; border-radius: 5px; cursor: pointer; font-weight: bold; transition: all 0.3s;">♡</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  setupMixPreviews();
+}
+
+function renderCharts(mixes) {
+  const chartList = document.getElementById('chartList');
+  if (!chartList) return;
+
+  const ranked = [...mixes]
+    .sort((a, b) => {
+      const ratingDiff = (b.averageRating || 0) - (a.averageRating || 0);
+      if (ratingDiff !== 0) return ratingDiff;
+      return (b.reviewCount || 0) - (a.reviewCount || 0);
+    })
+    .slice(0, 3);
+
+  if (ranked.length === 0) {
+    chartList.innerHTML = '<div class="chart-item"><div class="chart-info"><h3>No mixes yet</h3><p>Upload mixes to populate the charts.</p></div></div>';
+    return;
+  }
+
+  chartList.innerHTML = ranked.map((mix, index) => {
+    const heat = index === 0 ? 'Hot' : index === 1 ? 'Rising' : 'Top 10';
+    return `
+      <div class="chart-item">
+        <div class="chart-rank">${String(index + 1).padStart(2, '0')}</div>
+        <div class="chart-info">
+          <h3>${mix.title}</h3>
+          <p>${mix.artist || 'DJ Kraph'} • ${mix.duration || 'N/A'}</p>
+        </div>
+        <div class="chart-heat">${heat}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function renderReviews(mixes, storageKey) {
+  const reviewGrid = document.getElementById('reviewGrid');
+  const reviewSummary = document.getElementById('reviewSummary');
+  if (!reviewGrid || !reviewSummary) return;
+
+  const storedReviews = JSON.parse(localStorage.getItem(storageKey) || '[]');
+  if (storedReviews.length === 0) {
+    reviewSummary.textContent = 'No reviews yet • Be the first to review';
+    reviewGrid.innerHTML = '<div class="review-card"><div class="review-stars">☆☆☆☆☆</div><p>No reviews yet. Share your feedback to help others.</p><div class="review-meta">DJ Kraph • Community</div></div>';
+    return;
+  }
+
+  const avgRating = (storedReviews.reduce((sum, r) => sum + r.rating, 0) / storedReviews.length).toFixed(1);
+  reviewSummary.textContent = `${avgRating} average • ${storedReviews.length} reviews`;
+
+  const latestReviews = [...storedReviews]
+    .sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 4);
+
+  reviewGrid.innerHTML = latestReviews.map(review => {
+    const mix = mixes.find(m => m.id === review.mixId);
+    const mixName = mix ? mix.title : 'Premium Mix';
+    const stars = '★'.repeat(review.rating) + '☆'.repeat(5 - review.rating);
+    return `
+      <div class="review-card">
+        <div class="review-stars">${stars}</div>
+        <p>${review.comment || 'Loved the vibe on this mix!'}</p>
+        <div class="review-meta">${review.username || 'Listener'} • ${mixName}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function populateReviewMixOptions(mixes) {
+  const reviewSelect = document.getElementById('reviewMixId');
+  if (!reviewSelect) return;
+
+  if (mixes.length === 0) {
+    reviewSelect.innerHTML = '<option value="">No mixes available</option>';
+    reviewSelect.disabled = true;
+    return;
+  }
+
+  reviewSelect.disabled = false;
+  reviewSelect.innerHTML = mixes.map(mix => `
+    <option value="${mix.id}">${mix.title}</option>
+  `).join('');
+}
+
+function syncReviewSection(mixes) {
+  const reviewSelect = document.getElementById('reviewMixId');
+  if (!reviewSelect) return;
+
+  const updateList = () => {
+    if (typeof reviewsManager !== 'undefined' && reviewsManager && reviewSelect.value) {
+      reviewsManager.displayReviews(parseInt(reviewSelect.value, 10));
+    }
+  };
+
+  reviewSelect.addEventListener('change', updateList);
+  setTimeout(updateList, 200);
+}
+
+function initCustomCursor() {
+  const dot = document.querySelector('.cursor-dot');
+  const ring = document.querySelector('.cursor-ring');
+  if (!dot || !ring) return;
+
+  const supportsHover = window.matchMedia('(hover: hover)').matches;
+  if (!supportsHover) return;
+
+  document.body.classList.add('custom-cursor');
+
+  let mouseX = 0;
+  let mouseY = 0;
+  let ringX = 0;
+  let ringY = 0;
+
+  const update = () => {
+    ringX += (mouseX - ringX) * 0.15;
+    ringY += (mouseY - ringY) * 0.15;
+    dot.style.transform = `translate(${mouseX - 4}px, ${mouseY - 4}px)`;
+    ring.style.transform = `translate(${ringX - 16}px, ${ringY - 16}px)`;
+    requestAnimationFrame(update);
+  };
+
+  document.addEventListener('mousemove', (event) => {
+    mouseX = event.clientX;
+    mouseY = event.clientY;
+    dot.classList.add('is-active');
+    ring.classList.add('is-active');
+  });
+
+  document.addEventListener('mousedown', () => {
+    ring.classList.add('is-press');
+  });
+
+  document.addEventListener('mouseup', () => {
+    ring.classList.remove('is-press');
+  });
+
+  update();
+}
+
+function initSoundFx() {
+  const toggle = document.getElementById('soundToggle');
+  if (!toggle) return;
+
+  let soundEnabled = localStorage.getItem('sound_fx_enabled') === 'true';
+  let audioContext;
+
+  const updateToggleUI = () => {
+    toggle.textContent = soundEnabled ? '🔊' : '🔇';
+    toggle.title = soundEnabled ? 'Sound FX On' : 'Sound FX Off';
+  };
+
+  const playClick = () => {
+    if (!soundEnabled) return;
+    if (!audioContext) {
+      audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    const oscillator = audioContext.createOscillator();
+    const gainNode = audioContext.createGain();
+    oscillator.type = 'triangle';
+    oscillator.frequency.value = 220;
+    gainNode.gain.value = 0.08;
+    oscillator.connect(gainNode);
+    gainNode.connect(audioContext.destination);
+    oscillator.start();
+    oscillator.stop(audioContext.currentTime + 0.08);
+  };
+
+  toggle.addEventListener('click', () => {
+    soundEnabled = !soundEnabled;
+    localStorage.setItem('sound_fx_enabled', soundEnabled);
+    updateToggleUI();
+    playClick();
+  });
+
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+    if (target.closest('button, a')) {
+      playClick();
+    }
+  });
+
+  updateToggleUI();
+}
+
+let previewAudio;
+let previewTimer;
+let activePreviewCard;
+
+function setupMixPreviews() {
+  const supportsHover = window.matchMedia('(hover: hover)').matches;
+  if (!supportsHover) {
+    return;
+  }
+
+  if (!previewAudio) {
+    previewAudio = new Audio();
+    previewAudio.preload = 'none';
+    previewAudio.volume = 0.65;
+  }
+
+  const cards = document.querySelectorAll('.mix-card[data-audio]');
+  cards.forEach(card => {
+    if (card.dataset.previewBound === 'true') {
+      return;
+    }
+
+    card.dataset.previewBound = 'true';
+    const audioUrl = card.dataset.audio;
+
+    if (!audioUrl) {
+      return;
+    }
+
+    card.addEventListener('mouseenter', () => startPreview(card, audioUrl));
+    card.addEventListener('mouseleave', () => stopPreview(card));
+  });
+}
+
+function startPreview(card, audioUrl) {
+  if (!previewAudio) {
+    return;
+  }
+
+  if (activePreviewCard && activePreviewCard !== card) {
+    activePreviewCard.classList.remove('is-previewing');
+  }
+
+  activePreviewCard = card;
+  card.classList.add('is-previewing');
+  clearTimeout(previewTimer);
+
+  if (previewAudio.src !== audioUrl) {
+    previewAudio.src = audioUrl;
+  }
+
+  previewAudio.currentTime = 0;
+  previewAudio.play().catch(() => {
+    card.classList.remove('is-previewing');
+  });
+
+  previewTimer = setTimeout(() => {
+    stopPreview(card);
+  }, 20000);
+}
+
+function stopPreview(card) {
+  if (!previewAudio) {
+    return;
+  }
+
+  if (activePreviewCard === card) {
+    activePreviewCard.classList.remove('is-previewing');
+    activePreviewCard = null;
+  }
+
+  clearTimeout(previewTimer);
+  previewAudio.pause();
+  previewAudio.currentTime = 0;
+}
+
+function refreshCart() {
+  if (cartManager) {
+    cartManager.updateCartCount();
+  }
+}
+
+// Function to add mix to cart by ID
+function addMixToCart(mixId) {
+  const mixes = getUploadsedMixes();
+  const mix = mixes.find(m => m.id === mixId);
+  
+  if (!mix) {
+    alert('❌ Mix not found!');
+    return;
+  }
+  
+  if (cartManager) {
+    cartManager.addToCart(mix);
+    refreshCart();
+  } else {
+    alert('❌ Cart system not loaded. Please refresh the page.');
+  }
+}
+
+// Make displayMixes global for search filter manager
+window.displayMixes = displayMixes;
+</script>
+
+</body>
+</html>

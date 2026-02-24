@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ Kraph - Top Charts</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .charts-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(255, 215, 0, 0.05);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+        }
+
+        .charts-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .charts-header h1 {
+            color: #FFD700;
+            font-size: 36px;
+            margin: 0 0 10px 0;
+        }
+
+        .charts-header p {
+            color: #aaa;
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .chart-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #333;
+            flex-wrap: wrap;
+        }
+
+        .chart-tab {
+            padding: 12px 20px;
+            background: transparent;
+            color: #aaa;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .chart-tab.active {
+            color: #FFD700;
+            border-bottom-color: #FFD700;
+        }
+
+        .chart-tab:hover {
+            color: #FFC700;
+        }
+
+        .chart-content {
+            display: none;
+        }
+
+        .chart-content.active {
+            display: block;
+        }
+
+        .chart-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .chart-item {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            border-left: 4px solid #FFD700;
+            transition: all 0.3s;
+        }
+
+        .chart-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .chart-rank {
+            font-size: 32px;
+            font-weight: bold;
+            color: #FFD700;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .chart-rank.top3 {
+            animation: pulse 1s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .chart-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 2px solid #FFD700;
+        }
+
+        .chart-info {
+            flex: 1;
+        }
+
+        .chart-info h3 {
+            color: #FFD700;
+            margin: 0 0 5px 0;
+            font-size: 16px;
+        }
+
+        .chart-info p {
+            margin: 3px 0;
+            color: #aaa;
+            font-size: 13px;
+        }
+
+        .chart-stats {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            text-align: center;
+        }
+
+        .chart-stat {
+            background: rgba(255, 215, 0, 0.1);
+            padding: 10px 15px;
+            border-radius: 5px;
+            border: 1px solid #FFD700;
+        }
+
+        .chart-stat-value {
+            font-size: 20px;
+            color: #FFD700;
+            font-weight: bold;
+        }
+
+        .chart-stat-label {
+            color: #999;
+            font-size: 12px;
+        }
+
+        .btn-chart {
+            padding: 8px 15px;
+            background: #FFD700;
+            color: #121212;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+            transition: all 0.3s;
+        }
+
+        .btn-chart:hover {
+            background: #FFC700;
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .empty-chart {
+            text-align: center;
+            padding: 60px 20px;
+            color: #999;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            color: #FFC700;
+            text-decoration: underline;
+        }
+
+        .medal {
+            display: inline-block;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            text-align: center;
+            font-size: 40px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="charts-container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        
+        <div class="charts-header">
+            <h1>🏆 Top Charts</h1>
+            <p>Best-selling & most-viewed mixes this month</p>
+        </div>
+
+        <div class="chart-tabs">
+            <button class="chart-tab active" onclick="switchChart('most-viewed')">👁️ Most Viewed</button>
+            <button class="chart-tab" onclick="switchChart('best-rated')">⭐ Best Rated</button>
+            <button class="chart-tab" onclick="switchChart('most-sold')">💰 Best Sellers</button>
+            <button class="chart-tab" onclick="switchChart('trending')">🔥 Trending Now</button>
+        </div>
+
+        <!-- Most Viewed -->
+        <div id="most-viewed" class="chart-content active">
+            <div class="chart-list" id="mostViewedList"></div>
+        </div>
+
+        <!-- Best Rated -->
+        <div id="best-rated" class="chart-content">
+            <div class="chart-list" id="bestRatedList"></div>
+        </div>
+
+        <!-- Most Sold -->
+        <div id="most-sold" class="chart-content">
+            <div class="chart-list" id="mostSoldList"></div>
+        </div>
+
+        <!-- Trending -->
+        <div id="trending" class="chart-content">
+            <div class="chart-list" id="trendingList"></div>
+        </div>
+    </div>
+
+    <script src="js/authManager.js"></script>
+    <script src="js/mixManager.js"></script>
+    <script src="js/advancedFeaturesManager.js"></script>
+    <script src="js/cartManager.js"></script>
+
+    <script>
+        function switchChart(chartName) {
+            document.querySelectorAll('.chart-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.chart-tab').forEach(t => t.classList.remove('active'));
+            
+            document.getElementById(chartName).classList.add('active');
+            event.target.classList.add('active');
+
+            if (chartName === 'most-viewed') loadMostViewed();
+            if (chartName === 'best-rated') loadBestRated();
+            if (chartName === 'most-sold') loadMostSold();
+            if (chartName === 'trending') loadTrending();
+        }
+
+        function loadMostViewed() {
+            const topMixes = advancedFeaturesManager?.getTopMixes() || [];
+            const allMixes = mixManager?.mixes || [];
+            
+            if (topMixes.length === 0) {
+                document.getElementById('mostViewedList').innerHTML = '<div class="empty-chart">No views yet. Share your favorite mixes!</div>';
+                return;
+            }
+
+            document.getElementById('mostViewedList').innerHTML = topMixes.map((item, idx) => {
+                const mix = allMixes.find(m => m.id === item.mixId);
+                if (!mix) return '';
+                
+                const medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : '📊';
+                
+                return `
+                    <div class="chart-item">
+                        <span class="medal">${medal}</span>
+                        ${idx < 3 ? `<span class="chart-rank top3">${idx + 1}</span>` : `<span class="chart-rank">${idx + 1}</span>`}
+                        <img src="${mix.image}" alt="${mix.title}" class="chart-image">
+                        <div class="chart-info">
+                            <h3>${mix.title}</h3>
+                            <p>${mix.artist} • ${mix.genre}</p>
+                        </div>
+                        <div class="chart-stats">
+                            <div class="chart-stat">
+                                <div class="chart-stat-value">${item.views}</div>
+                                <div class="chart-stat-label">Views</div>
+                            </div>
+                            <div class="chart-stat">
+                                <div class="chart-stat-value">KSh ${mix.price}</div>
+                                <div class="chart-stat-label">Price</div>
+                            </div>
+                        </div>
+                        <button class="btn-chart" onclick="cartManager.addToCart(${JSON.stringify(mix).replace(/"/g, '&quot;')}); alert('Added to cart!');">Buy Now</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function loadBestRated() {
+            const allMixes = mixManager?.mixes || [];
+            const rated = allMixes
+                .filter(m => m.averageRating > 0)
+                .sort((a, b) => (b.averageRating || 0) - (a.averageRating || 0))
+                .slice(0, 10);
+
+            if (rated.length === 0) {
+                document.getElementById('bestRatedList').innerHTML = '<div class="empty-chart">No reviews yet. Be the first to review!</div>';
+                return;
+            }
+
+            document.getElementById('bestRatedList').innerHTML = rated.map((mix, idx) => {
+                const medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : '⭐';
+                return `
+                    <div class="chart-item">
+                        <span class="medal">${medal}</span>
+                        ${idx < 3 ? `<span class="chart-rank top3">${idx + 1}</span>` : `<span class="chart-rank">${idx + 1}</span>`}
+                        <img src="${mix.image}" alt="${mix.title}" class="chart-image">
+                        <div class="chart-info">
+                            <h3>${mix.title}</h3>
+                            <p>${mix.artist} • ${mix.genre}</p>
+                        </div>
+                        <div class="chart-stats">
+                            <div class="chart-stat">
+                                <div class="chart-stat-value">⭐ ${mix.averageRating || 0}</div>
+                                <div class="chart-stat-label">${mix.reviewCount || 0} reviews</div>
+                            </div>
+                            <div class="chart-stat">
+                                <div class="chart-stat-value">KSh ${mix.price}</div>
+                                <div class="chart-stat-label">Price</div>
+                            </div>
+                        </div>
+                        <button class="btn-chart" onclick="cartManager.addToCart(${JSON.stringify(mix).replace(/"/g, '&quot;')}); alert('Added to cart!');">Buy Now</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function loadMostSold() {
+            const allMixes = mixManager?.mixes || [];
+            const purchases = analyticsManager?.sales || [];
+            
+            const salesCount = {};
+            purchases.forEach(p => {
+                salesCount[p.mixId] = (salesCount[p.mixId] || 0) + 1;
+            });
+
+            const sorted = Object.entries(salesCount)
+                .sort((a, b) => b[1] - a[1])
+                .slice(0, 10);
+
+            if (sorted.length === 0) {
+                document.getElementById('mostSoldList').innerHTML = '<div class="empty-chart">No sales yet. Share your best mixes!</div>';
+                return;
+            }
+
+            document.getElementById('mostSoldList').innerHTML = sorted.map(([mixId, count], idx) => {
+                const mix = allMixes.find(m => m.id === parseInt(mixId));
+                if (!mix) return '';
+                
+                const medal = idx === 0 ? '🥇' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : '💰';
+                return `
+                    <div class="chart-item">
+                        <span class="medal">${medal}</span>
+                        ${idx < 3 ? `<span class="chart-rank top3">${idx + 1}</span>` : `<span class="chart-rank">${idx + 1}</span>`}
+                        <img src="${mix.image}" alt="${mix.title}" class="chart-image">
+                        <div class="chart-info">
+                            <h3>${mix.title}</h3>
+                            <p>${mix.artist} • ${mix.genre}</p>
+                        </div>
+                        <div class="chart-stats">
+                            <div class="chart-stat">
+                                <div class="chart-stat-value">${count}</div>
+                                <div class="chart-stat-label">Sold</div>
+                            </div>
+                            <div class="chart-stat">
+                                <div class="chart-stat-value">KSh ${mix.price}</div>
+                                <div class="chart-stat-label">Price</div>
+                            </div>
+                        </div>
+                        <button class="btn-chart" onclick="cartManager.addToCart(${JSON.stringify(mix).replace(/"/g, '&quot;')}); alert('Added to cart!');">Buy Now</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function loadTrending() {
+            // Trending = Most viewed in last 7 days + good rating
+            const allMixes = mixManager?.mixes || [];
+            const topMixes = advancedFeaturesManager?.getTopMixes() || [];
+            
+            const trending = topMixes
+                .filter(tm => allMixes.find(m => m.id === tm.mixId && (m.averageRating || 0) >= 3))
+                .slice(0, 10);
+
+            if (trending.length === 0) {
+                document.getElementById('trendingList').innerHTML = '<div class="empty-chart">Check back soon for trending mixes!</div>';
+                return;
+            }
+
+            document.getElementById('trendingList').innerHTML = trending.map((item, idx) => {
+                const mix = allMixes.find(m => m.id === item.mixId);
+                if (!mix) return '';
+                
+                const medal = idx === 0 ? '🔥' : idx === 1 ? '🌟' : idx === 2 ? '✨' : '🎵';
+                return `
+                    <div class="chart-item">
+                        <span class="medal">${medal}</span>
+                        ${idx < 3 ? `<span class="chart-rank top3">${idx + 1}</span>` : `<span class="chart-rank">${idx + 1}</span>`}
+                        <img src="${mix.image}" alt="${mix.title}" class="chart-image">
+                        <div class="chart-info">
+                            <h3>${mix.title}</h3>
+                            <p>${mix.artist} • ${mix.genre}</p>
+                        </div>
+                        <div class="chart-stats">
+                            <div class="chart-stat">
+                                <div class="chart-stat-value">🔥 ${item.views}</div>
+                                <div class="chart-stat-label">Trending</div>
+                            </div>
+                            <div class="chart-stat">
+                                <div class="chart-stat-value">KSh ${mix.price}</div>
+                                <div class="chart-stat-label">Price</div>
+                            </div>
+                        </div>
+                        <button class="btn-chart" onclick="cartManager.addToCart(${JSON.stringify(mix).replace(/"/g, '&quot;')}); alert('Added to cart!');">Buy Now</button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadMostViewed();
+        });
+    </script>
+</body>
+</html>

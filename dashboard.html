@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ Kraph - My Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(255, 215, 0, 0.05);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #FFD700;
+        }
+
+        .dashboard-header h1 {
+            color: #FFD700;
+            margin: 0;
+        }
+
+        .user-info {
+            color: #aaa;
+        }
+
+        .user-info strong {
+            color: #FFD700;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #333;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            background: transparent;
+            color: #aaa;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .tab-btn.active {
+            color: #FFD700;
+            border-bottom-color: #FFD700;
+        }
+
+        .tab-btn:hover {
+            color: #FFC700;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .library-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .library-card {
+            background: #1e1e1e;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #FFD700;
+            transition: all 0.3s;
+        }
+
+        .library-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .library-card img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .library-card-content {
+            padding: 15px;
+            color: white;
+        }
+
+        .library-card h3 {
+            color: #FFD700;
+            margin: 0 0 5px 0;
+            font-size: 14px;
+        }
+
+        .library-card p {
+            margin: 3px 0;
+            color: #aaa;
+            font-size: 12px;
+        }
+
+        .wishlist-item,
+        .playlist-item {
+            background: #1e1e1e;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 3px solid #FFD700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .item-info h3 {
+            color: #FFD700;
+            margin: 0 0 5px 0;
+        }
+
+        .item-info p {
+            margin: 3px 0;
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn {
+            padding: 8px 15px;
+            background: #FFD700;
+            color: #121212;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+            font-size: 12px;
+        }
+
+        .btn:hover {
+            background: #FFC700;
+        }
+
+        .btn-remove {
+            background: #ff6b6b;
+            color: white;
+        }
+
+        .btn-remove:hover {
+            background: #ff5252;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #999;
+            padding: 60px 20px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: #1e1e1e;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #FFD700;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 32px;
+            color: #FFD700;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            color: #aaa;
+            font-size: 14px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            color: #FFC700;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        
+        <div class="dashboard-header">
+            <h1>📊 My Dashboard</h1>
+            <div class="user-info">
+                Welcome, <strong id="username">Guest</strong>
+            </div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('library')">📚 My Library</button>
+            <button class="tab-btn" onclick="switchTab('wishlist')">❤️ Wishlist</button>
+            <button class="tab-btn" onclick="switchTab('playlists')">🎵 Playlists</button>
+            <button class="tab-btn" onclick="switchTab('stats')">📈 Stats</button>
+        </div>
+
+        <!-- Library Tab -->
+        <div id="library" class="tab-content active">
+            <h2 style="color: #FFD700; margin-top: 0;">My Purchased Mixes</h2>
+            <div class="library-grid" id="libraryGrid"></div>
+        </div>
+
+        <!-- Wishlist Tab -->
+        <div id="wishlist" class="tab-content">
+            <h2 style="color: #FFD700; margin-top: 0;">My Wishlist</h2>
+            <div id="wishlistContainer"></div>
+        </div>
+
+        <!-- Playlists Tab -->
+        <div id="playlists" class="tab-content">
+            <h2 style="color: #FFD700; margin-top: 0;">My Playlists</h2>
+            
+            <div style="background: #1e1e1e; padding: 20px; border-radius: 10px; margin-bottom: 30px; border: 1px solid #FFD700;">
+                <h3 style="color: #FFD700; margin-top: 0;">Create New Playlist</h3>
+                <form id="createPlaylistForm">
+                    <div style="margin-bottom: 15px;">
+                        <input type="text" id="playlistName" placeholder="Playlist name" style="width: 100%; padding: 10px; background: #252525; color: white; border: 1px solid #FFD700; border-radius: 5px; margin-bottom: 10px;">
+                        <textarea id="playlistDescription" placeholder="Description (optional)" style="width: 100%; padding: 10px; background: #252525; color: white; border: 1px solid #FFD700; border-radius: 5px; min-height: 80px;"></textarea>
+                    </div>
+                    <button type="submit" class="btn">Create Playlist</button>
+                </form>
+                <div id="playlistMessage" class="message"></div>
+            </div>
+
+            <div id="playlistsContainer"></div>
+        </div>
+
+        <!-- Stats Tab -->
+        <div id="stats" class="tab-content">
+            <h2 style="color: #FFD700; margin-top: 0;">Your Statistics</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalPurchases">0</div>
+                    <div class="stat-label">Total Purchases</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalSpent">KSh 0</div>
+                    <div class="stat-label">Total Spent</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="reviewsLeft">0</div>
+                    <div class="stat-label">Reviews Posted</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="wishlistCount">0</div>
+                    <div class="stat-label">Wishlist Items</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/authManager.js"></script>
+    <script src="js/cartManager.js"></script>
+    <script src="js/featureManager.js"></script>
+    <script src="js/reviewsManager.js"></script>
+
+    <script>
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            if (tabName === 'library') loadLibrary();
+            if (tabName === 'wishlist') loadWishlist();
+            if (tabName === 'playlists') loadPlaylists();
+            if (tabName === 'stats') loadStats();
+        }
+
+        function loadLibrary() {
+            if (!authManager?.isLoggedIn()) {
+                document.getElementById('libraryGrid').innerHTML = '<div class="empty-state">Please <a href="login.html" style="color: #FFD700;">login</a> to view your library</div>';
+                return;
+            }
+
+            const purchases = authManager.currentUser.purchases || [];
+            if (purchases.length === 0) {
+                document.getElementById('libraryGrid').innerHTML = '<div class="empty-state">You haven\'t purchased any mixes yet. <a href="index.html" style="color: #FFD700;">Browse mixes</a></div>';
+                return;
+            }
+
+            const allMixes = mixManager?.mixes || [];
+            const purchasedMixes = allMixes.filter(m => purchases.includes(m.id));
+            
+            document.getElementById('libraryGrid').innerHTML = purchasedMixes.map(mix => `
+                <div class="library-card">
+                    <img src="${mix.image}" alt="${mix.title}">
+                    <div class="library-card-content">
+                        <h3>${mix.title}</h3>
+                        <p>${mix.artist}</p>
+                        <p>🎵 ${mix.genre}</p>
+                        <div style="margin-top: 10px; display: flex; gap: 5px;">
+                            <button class="btn" onclick="alert('Download feature coming soon')" style="flex: 1; font-size: 11px;">Download</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadWishlist() {
+            if (!authManager?.isLoggedIn()) {
+                document.getElementById('wishlistContainer').innerHTML = '<div class="empty-state">Please <a href="login.html" style="color: #FFD700;">login</a> to view your wishlist</div>';
+                return;
+            }
+
+            const wishlist = authManager.currentUser.wishlist || [];
+            if (wishlist.length === 0) {
+                document.getElementById('wishlistContainer').innerHTML = '<div class="empty-state">Your wishlist is empty. <a href="index.html" style="color: #FFD700;">Add mixes</a> to your wishlist</div>';
+                return;
+            }
+
+            const allMixes = mixManager?.mixes || [];
+            const wishlistMixes = allMixes.filter(m => wishlist.includes(m.id));
+            
+            document.getElementById('wishlistContainer').innerHTML = wishlistMixes.map(mix => `
+                <div class="wishlist-item">
+                    <div class="item-info">
+                        <h3>${mix.title}</h3>
+                        <p>${mix.artist} • KSh ${mix.price}</p>
+                    </div>
+                    <div class="item-actions">
+                        <button class="btn" onclick="cartManager.addToCart(${JSON.stringify(mix).replace(/"/g, '&quot;')})">Add to Cart</button>
+                        <button class="btn btn-remove" onclick="authManager.removeFromWishlist(${mix.id}); loadWishlist();">Remove</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadPlaylists() {
+            if (!authManager?.isLoggedIn()) {
+                document.getElementById('playlistsContainer').innerHTML = '<div class="empty-state">Please <a href="login.html" style="color: #FFD700;">login</a> to view your playlists</div>';
+                return;
+            }
+
+            const userPlaylists = playlistManager?.getUserPlaylists() || [];
+            if (userPlaylists.length === 0) {
+                document.getElementById('playlistsContainer').innerHTML = '<div class="empty-state">You haven\'t created any playlists yet. Create one above!</div>';
+                return;
+            }
+
+            const allMixes = mixManager?.mixes || [];
+            document.getElementById('playlistsContainer').innerHTML = userPlaylists.map(playlist => `
+                <div class="playlist-item" style="flex-direction: column; align-items: flex-start;">
+                    <div class="item-info" style="margin-bottom: 15px; width: 100%;">
+                        <h3>${playlist.name}</h3>
+                        <p>${playlist.description}</p>
+                        <p>📊 ${playlist.mixes.length} mixes</p>
+                    </div>
+                    <div style="width: 100%; display: flex; gap: 10px;">
+                        <button class="btn" onclick="alert('View playlist coming soon')" style="flex: 1;">View Playlist</button>
+                        <button class="btn btn-remove" onclick="playlistManager.deletePlaylist(${playlist.id}); loadPlaylists();" style="flex: 1;">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function loadStats() {
+            if (!authManager?.isLoggedIn()) {
+                document.getElementById('stats').innerHTML = '<div class="empty-state">Please <a href="login.html" style="color: #FFD700;">login</a> to view your statistics</div>';
+                return;
+            }
+
+            const purchases = authManager.currentUser.purchases || [];
+            const wishlist = authManager.currentUser.wishlist || [];
+            const reviews = reviewsManager?.reviews?.filter(r => r.userId === authManager.currentUser.id) || [];
+
+            document.getElementById('totalPurchases').textContent = purchases.length;
+            document.getElementById('reviewsLeft').textContent = reviews.length;
+            document.getElementById('wishlistCount').textContent = wishlist.length;
+
+            let totalSpent = 0;
+            const allMixes = mixManager?.mixes || [];
+            purchases.forEach(purchaseId => {
+                const mix = allMixes.find(m => m.id === purchaseId);
+                if (mix) totalSpent += mix.price;
+            });
+            document.getElementById('totalSpent').textContent = `KSh ${totalSpent}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (authManager?.isLoggedIn()) {
+                document.getElementById('username').textContent = authManager.currentUser.username;
+            } else {
+                document.getElementById('username').textContent = 'Guest';
+            }
+            loadLibrary();
+        });
+    </script>
+</body>
+</html>

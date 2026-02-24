@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ Kraph - Admin Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .admin-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background: rgba(255, 215, 0, 0.05);
+            border: 2px solid #FFD700;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
+        }
+
+        .admin-container h1 {
+            color: #FFD700;
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 30px;
+        }
+
+        .form-section {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            border: 1px solid #FFD700;
+        }
+
+        .form-section h2 {
+            color: #FFD700;
+            font-size: 24px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #FFD700;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            background: #1e1e1e;
+            color: white;
+            border: 1px solid #FFD700;
+            border-radius: 5px;
+            font-size: 14px;
+            font-family: inherit;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            background: #252525;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input-wrapper input[type="file"] {
+            display: none;
+        }
+
+        .file-input-label {
+            display: block;
+            padding: 15px;
+            background: #1e1e1e;
+            color: #FFD700;
+            text-align: center;
+            border: 2px dashed #FFD700;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: bold;
+        }
+
+        .file-input-label:hover {
+            background: #252525;
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .file-input-label.drag-over {
+            background: rgba(255, 215, 0, 0.1);
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .file-name {
+            color: #90EE90;
+            margin-top: 8px;
+            font-size: 12px;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 15px;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-submit {
+            background: #FFD700;
+            color: #121212;
+        }
+
+        .btn-submit:hover {
+            background: #FFC700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
+        .btn-reset {
+            background: #444;
+            color: #FFD700;
+            border: 1px solid #FFD700;
+        }
+
+        .btn-reset:hover {
+            background: #555;
+        }
+
+        .message {
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+
+        .message.success {
+            background: rgba(144, 238, 144, 0.2);
+            color: #90EE90;
+            border: 1px solid #90EE90;
+            display: block;
+        }
+
+        .message.error {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+            border: 1px solid #ff6b6b;
+            display: block;
+        }
+
+        .mixes-list {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #FFD700;
+        }
+
+        .mixes-list h2 {
+            color: #FFD700;
+            font-size: 24px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        .mix-item {
+            background: #1e1e1e;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border-left: 3px solid #FFD700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .mix-info h3 {
+            color: #FFD700;
+            margin: 0 0 5px 0;
+            font-size: 18px;
+        }
+
+        .mix-info p {
+            margin: 5px 0;
+            color: #ccc;
+            font-size: 13px;
+        }
+
+        .mix-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-edit {
+            padding: 8px 15px;
+            background: #22B14C;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-edit:hover {
+            background: #1ea03d;
+            box-shadow: 0 0 10px rgba(34, 177, 76, 0.5);
+        }
+
+        .btn-delete {
+            padding: 8px 15px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-delete:hover {
+            background: #ff5252;
+            box-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+        }
+
+        .empty-message {
+            text-align: center;
+            color: #999;
+            padding: 30px;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #FFD700;
+            text-decoration: none;
+            font-weight: bold;
+            margin-bottom: 20px;
+            transition: all 0.3s;
+        }
+
+        .back-link:hover {
+            color: #FFC700;
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        
+        <h1>🎵 Admin Dashboard</h1>
+
+        <div id="message" class="message"></div>
+
+        <div class="form-section">
+            <h2>Upload New Mix</h2>
+            
+            <div style="display: flex; gap: 10px; margin-bottom: 20px; justify-content: space-between; align-items: center;">
+                <button type="button" onclick="toggleAdvancedFields()" class="btn" style="background: #444; color: #FFD700; padding: 8px 15px; font-size: 13px;">
+                    <span id="toggleText">▼ Show Advanced Fields</span>
+                </button>
+                <button type="button" onclick="quickFillDefaults()" class="btn" style="background: #22B14C; padding: 8px 15px; font-size: 13px;">⚡ Quick Fill</button>
+            </div>
+
+            <form id="uploadForm">
+                <!-- Essential Fields -->
+                <div class="form-group">
+                    <label for="mixTitle">Mix Title *</label>
+                    <input type="text" id="mixTitle" placeholder="e.g., Summer Vibes 2024" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="mixFile">Audio/Video File *</label>
+                    <div class="file-input-wrapper">
+                        <label for="audioFile" class="file-input-label" id="fileLabel">
+                            📁 Click to upload or drag & drop
+                        </label>
+                        <input type="file" id="audioFile" accept="audio/*,video/*">
+                        <div class="file-name" id="fileName"></div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="audioUrl">Or Audio URL (Direct Link) *</label>
+                    <input type="url" id="audioUrl" placeholder="https://example.com/audio.mp3 or YouTube/SoundCloud link">
+                    <small style="color: #999; font-size: 12px; display: block; margin-top: 5px;">
+                        💡 You can provide either a file or a URL. URL is recommended for unlimited uploads!
+                    </small>
+                </div>
+
+                <div class="form-group">
+                    <label for="mixPrice">Price (KSh) *</label>
+                    <input type="number" id="mixPrice" placeholder="600" value="600" min="1" required>
+                </div>
+
+                <!-- Advanced Fields (Hidden by default) -->
+                <div id="advancedFields" style="display: none;">
+                    <div class="form-group">
+                        <label for="artistName">Artist Name</label>
+                        <input type="text" id="artistName" placeholder="DJ Kraph" value="DJ Kraph">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="artistImage">Artist Image URL</label>
+                        <input type="url" id="artistImage" placeholder="https://..." value="https://yt3.googleusercontent.com/vH-O_ETTR-NbpBOAm2JFOxvNl8GiRrfikuX3Aa9cBD6YfaDpStOpH1yFD4IytynhD0WniJE-TvY=s160-c-k-c0x00ffffff-no-rj">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mixDescription">Description</label>
+                        <textarea id="mixDescription" placeholder="Mix description (optional)"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mixGenre">Genre</label>
+                        <select id="mixGenre">
+                            <option value="Mixed" selected>Mixed</option>
+                            <option value="House">House</option>
+                            <option value="Hip-Hop">Hip-Hop</option>
+                            <option value="Afrobeats">Afrobeats</option>
+                            <option value="Electronic">Electronic</option>
+                            <option value="Deep House">Deep House</option>
+                            <option value="Techno">Techno</option>
+                            <option value="Reggae">Reggae</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mixBPM">BPM</label>
+                        <input type="number" id="mixBPM" placeholder="120" min="60" max="200" value="120">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mixDuration">Duration (MM:SS)</label>
+                        <input type="text" id="mixDuration" placeholder="45:30" value="45:00">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="mixTracks">Track List (one per line)</label>
+                        <textarea id="mixTracks" placeholder="Track 1&#10;Track 2&#10;Track 3" style="min-height: 100px;"></textarea>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn btn-submit">🚀 Upload Mix</button>
+                    <button type="reset" class="btn btn-reset">Clear</button>
+                </div>
+            </form>
+        </div>
+
+        <script>
+            let advancedFieldsVisible = false;
+
+            function toggleAdvancedFields() {
+                advancedFieldsVisible = !advancedFieldsVisible;
+                const advancedFields = document.getElementById('advancedFields');
+                const toggleText = document.getElementById('toggleText');
+                
+                if (advancedFieldsVisible) {
+                    advancedFields.style.display = 'block';
+                    toggleText.textContent = '▲ Hide Advanced Fields';
+                } else {
+                    advancedFields.style.display = 'none';
+                    toggleText.textContent = '▼ Show Advanced Fields';
+                }
+            }
+
+            function quickFillDefaults() {
+                document.getElementById('artistName').value = 'DJ Kraph';
+                document.getElementById('artistImage').value = 'https://yt3.googleusercontent.com/vH-O_ETTR-NbpBOAm2JFOxvNl8GiRrfikuX3Aa9cBD6YfaDpStOpH1yFD4IytynhD0WniJE-TvY=s160-c-k-c0x00ffffff-no-rj';
+                document.getElementById('mixPrice').value = '600';
+                document.getElementById('mixGenre').value = 'Mixed';
+                document.getElementById('mixBPM').value = '120';
+                document.getElementById('mixDuration').value = '45:00';
+                alert('✅ Default values filled! Just add title and file.');
+            }
+        </script>
+
+        <div class="mixes-list">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2>Your Mixes</h2>
+                <div style="background: rgba(255, 215, 0, 0.1); padding: 10px 20px; border-radius: 5px; border: 1px solid #FFD700;">
+                    <span style="color: #FFD700; font-weight: bold;">Total Mixes: <span id="totalMixes">0</span></span>
+                </div>
+            </div>
+            <div id="mixesList"></div>
+        </div>
+    </div>
+
+    <script src="js/authManager.js"></script>
+    <script src="js/mixManager.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/featureManager.js"></script>
+</body>
+</html>
