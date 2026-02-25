@@ -2,6 +2,9 @@
 const AUTH_STORAGE_KEY = 'djkraph_users';
 const CURRENT_USER_KEY = 'djkraph_current_user';
 
+// The single admin email — only this account can access the Admin Dashboard
+const ADMIN_EMAIL = 'admin@djkraph.com';
+
 class AuthManager {
     constructor() {
         this.currentUser = this.getCurrentUser();
@@ -95,6 +98,10 @@ class AuthManager {
 
     isLoggedIn() {
         return this.currentUser !== null;
+    }
+
+    isAdmin() {
+        return this.isLoggedIn() && this.currentUser.email === ADMIN_EMAIL;
     }
 
     updateNavigation() {

@@ -178,7 +178,7 @@ app.post('/stkpush', async (req, res) => {
     }
 
     const formattedPhone = formatPhoneNumber(phone);
-    const timestamp = new Date().toISOString().replace(/[:-]/g, '').split('.')[0]; // YYYYMMDDHHMMSS
+    const timestamp = new Date().toISOString().replace(/[-:T]/g, '').substring(0, 14);
     const checkoutRequestId = `${MPESA_CONFIG.BUSINESS_SHORTCODE}${timestamp}${uuidv4().substring(0, 8)}`;
 
     console.log(`\n📱 STK Push Request:`);
@@ -328,7 +328,7 @@ app.post('/stkpush/status', async (req, res) => {
     }
 
     // ========== QUERY M-PESA API ==========
-    const timestamp = new Date().toISOString().replace(/[:-]/g, '').split('.')[0];
+    const timestamp = new Date().toISOString().replace(/[-:T]/g, '').substring(0, 14);
 
     const queryPayload = {
       BusinessShortCode: MPESA_CONFIG.BUSINESS_SHORTCODE,
@@ -352,7 +352,7 @@ app.post('/stkpush/status', async (req, res) => {
     const responseData = queryResponse.data;
 
     // ========== HANDLE RESPONSE CODES ==========
-    if (responseData.ResultCode === '0') {
+    if (String(responseData.ResultCode) === '0') {
       // Success - Payment completed
       transaction.status = 'completed';
       transaction.mpesaReceiptNumber = responseData.MpesaReceiptNumber;
@@ -368,7 +368,7 @@ app.post('/stkpush/status', async (req, res) => {
         amount: responseData.Amount,
         timestamp: new Date().toISOString()
       });
-    } else if (responseData.ResultCode === '1050') {
+    } else if (String(responseData.ResultCode) === '1050') {
       // Request failed (user cancelled, etc.)
       transaction.status = 'failed';
       transaction.failureReason = responseData.ResultDesc;

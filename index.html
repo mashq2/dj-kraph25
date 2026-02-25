@@ -29,6 +29,7 @@
         🛒 Cart
         <span id="cartCount" style="display: none; position: absolute; top: -8px; right: -8px; background: #ff6b6b; color: white; border-radius: 50%; width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold;">0</span>
       </a>
+      <a href="resume.html" style="color: #FFD700; text-decoration: none; margin-right: 15px; font-weight: bold; font-size: 13px;">📄 Resume</a>
       <a href="faq.html" style="color: #FFD700; text-decoration: none; margin-right: 15px; font-weight: bold; font-size: 13px;">❓ FAQ</a>
       <button id="soundToggle" style="background: transparent; border: none; font-size: 18px; cursor: pointer; color: #FFD700;" title="Sound FX">🔊</button>
       <button id="themeToggle" style="background: transparent; border: none; font-size: 20px; cursor: pointer; color: #FFD700;">🌙</button>
@@ -180,7 +181,7 @@
   <!--  MIX GRID -->
   <div id="premium" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
     <h2 class="section-title">Premium Mixes</h2>
-    <a href="admin.html" style="color: #FFD700; text-decoration: none; font-weight: bold; padding: 10px 20px; border: 2px solid #FFD700; border-radius: 5px; transition: all 0.3s;">+ Add Mix</a>
+    <a id="addMixBtn" href="admin.html" style="display:none; color: #FFD700; text-decoration: none; font-weight: bold; padding: 10px 20px; border: 2px solid #FFD700; border-radius: 5px; transition: all 0.3s;">+ Add Mix</a>
   </div>
 
   <!-- Filter Section -->
@@ -311,18 +312,14 @@
 
 <!-- PLAYER -->
 <div class="player">
-  <img src="https://yt3.googleusercontent.com/vH-O_ETTR-NbpBOAm2JFOxvNl8GiRrfikuX3Aa9cBD6YfaDpStOpH1yFD4IytynhD0WniJE-TvY=s160-c-k-c0x00ffffff-no-rj" alt="DJ Logo" width="50" style="vertical-align: middle;">
+  <img src="https://yt3.googleusercontent.com/vH-O_ETTR-NbpBOAm2JFOxvNl8GiRrfikuX3Aa9cBD6YfaDpStOpH1yFD4IytynhD0WniJE-TvY=s160-c-k-c0x00ffffff-no-rj" alt="DJ Kraph" class="player-logo">
   <h4 id="nowPlaying">Nothing playing</h4>
-  
   <div class="player-controls">
     <button class="control-btn" id="prevBtn" title="Previous">⏮️</button>
     <button class="control-btn" id="pauseBtn" title="Pause">⏸️</button>
     <button class="control-btn" id="playBtn" title="Play">▶️</button>
     <button class="control-btn" id="nextBtn" title="Next">⏭️</button>
   </div>
-  
-  <img src="https://yt3.googleusercontent.com/vH-O_ETTR-NbpBOAm2JFOxvNl8GiRrfikuX3Aa9cBD6YfaDpStOpH1yFD4IytynhD0WniJE-TvY=s160-c-k-c0x00ffffff-no-rj" alt="DJ Kraph Logo" width="50" style="vertical-align: middle;">
-  
   <audio id="audioPlayer" controls style="display:none;"></audio>
   <video id="videoPlayer" controls style="display:none;"></video>
 </div>
@@ -395,6 +392,12 @@ document.addEventListener('DOMContentLoaded', function() {
   syncReviewSection(mixes);
   initCustomCursor();
   initSoundFx();
+
+  // Show "+ Add Mix" button only for the admin
+  const addMixBtn = document.getElementById('addMixBtn');
+  if (addMixBtn && typeof authManager !== 'undefined' && authManager.isAdmin()) {
+    addMixBtn.style.display = 'inline-block';
+  }
 
   // Update cart count
   if (cartManager) {

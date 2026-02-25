@@ -12,6 +12,22 @@
   to = "/.netlify/functions/:splat"
   status = 200
 
+# Route M-Pesa STK endpoints to Netlify functions
+[[redirects]]
+  from = "/stkpush"
+  to = "/.netlify/functions/stkpush"
+  status = 200
+
+[[redirects]]
+  from = "/stkpush/status"
+  to = "/.netlify/functions/stkpush-status"
+  status = 200
+
+[[redirects]]
+  from = "/mpesa/callback"
+  to = "/.netlify/functions/mpesa-callback"
+  status = 200
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
