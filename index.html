@@ -181,7 +181,7 @@
   <!--  MIX GRID -->
   <div id="premium" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
     <h2 class="section-title">Premium Mixes</h2>
-    <a href="admin.html" style="color: #FFD700; text-decoration: none; font-weight: bold; padding: 10px 20px; border: 2px solid #FFD700; border-radius: 5px; transition: all 0.3s;">+ Add Mix</a>
+    <a id="addMixBtn" href="admin.html" style="display:none; color: #FFD700; text-decoration: none; font-weight: bold; padding: 10px 20px; border: 2px solid #FFD700; border-radius: 5px; transition: all 0.3s;">+ Add Mix</a>
   </div>
 
   <!-- Filter Section -->
@@ -396,6 +396,12 @@ document.addEventListener('DOMContentLoaded', function() {
   syncReviewSection(mixes);
   initCustomCursor();
   initSoundFx();
+
+  // Show "+ Add Mix" button only for the admin
+  const addMixBtn = document.getElementById('addMixBtn');
+  if (addMixBtn && typeof authManager !== 'undefined' && authManager.isAdmin()) {
+    addMixBtn.style.display = 'inline-block';
+  }
 
   // Update cart count
   if (cartManager) {
