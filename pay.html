@@ -239,13 +239,13 @@
 
       <p>Complete your payment to unlock exclusive music</p>
 
-      <div class="price-display" id="priceDisplay">$0</div>
+      <div class="price-display" id="priceDisplay">KSh 0</div>
 
       <!-- Payment Method Selector -->
       <div class="payment-method-selector">
-        <button class="payment-method-btn active" onclick="selectPaymentMethod('mpesa')">📱 M-Pesa</button>
-        <button class="payment-method-btn" onclick="selectPaymentMethod('stripe')">💳 Card</button>
-        <button class="payment-method-btn" onclick="selectPaymentMethod('paypal')">🅿️ PayPal</button>
+        <button class="payment-method-btn active" onclick="selectPaymentMethod('mpesa', event)">📱 M-Pesa</button>
+        <button class="payment-method-btn" onclick="selectPaymentMethod('stripe', event)">💳 Card</button>
+        <button class="payment-method-btn" onclick="selectPaymentMethod('paypal', event)">🅿️ PayPal</button>
       </div>
 
       <!-- M-Pesa Payment Form -->
@@ -323,28 +323,33 @@
   </div>
 
   <script>
-    // Initialize Stripe and PayPal
-    const stripe = Stripe('pk_test_51ABC123DEF456GHI789JKL');
-    const elements = stripe.elements();
-    const cardElement = elements.create('card');
+    // Stripe initialisation — guard against invalid/missing key
+    let stripe, elements, cardElement;
+    try {
+      stripe = Stripe('pk_test_51ABC123DEF456GHI789JKL');
+      elements = stripe.elements();
+      cardElement = elements.create('card');
+    } catch(e) {
+      console.warn('Stripe not available:', e.message);
+    }
     
     let currentPaymentMethod = 'mpesa';
     let trackPrice = 0;
-    const USD_TO_KES = 150; // Approximate conversion rate
 
     // Get URL parameters for track info
     const urlParams = new URLSearchParams(window.location.search);
     const trackName = urlParams.get('track') || 'Premium Mix';
-    trackPrice = parseFloat(urlParams.get('price')) || 100;
+    // Price is already in KSh — no USD conversion needed
+    trackPrice = parseInt(urlParams.get('price'), 10) || 600;
     const trackType = urlParams.get('type') || 'audio';
     const trackSrc = urlParams.get('src') || '';
 
     // Display track info
     document.getElementById('trackName').textContent = trackName;
-    document.getElementById('priceDisplay').textContent = `$${trackPrice.toFixed(2)}`;
+    document.getElementById('priceDisplay').textContent = `KSh ${trackPrice.toLocaleString()}`;
     
-    // Update M-Pesa amount display
-    const kesAmount = Math.round(trackPrice * USD_TO_KES);
+    // Update M-Pesa amount display (price is already KSh)
+    const kesAmount = trackPrice;
     document.getElementById('mpesa-amount-display').textContent = `KES ${kesAmount.toLocaleString()}`;
     document.getElementById('paybill-amount-display').textContent = `KES ${kesAmount.toLocaleString()}`;
 
@@ -399,8 +404,10 @@
 
     // Initialize Stripe Card Element
     setTimeout(() => {
-      cardElement.mount('#stripe-card-element');
-      cardElement.addEventListener('change', handleCardChange);
+      if (cardElement) {
+        cardElement.mount('#stripe-card-element');
+        cardElement.addEventListener('change', handleCardChange);
+      }
     }, 100);
 
     function handleCardChange(event) {
@@ -414,12 +421,12 @@
     }
 
     // Payment Method Selector
-    function selectPaymentMethod(method) {
+    function selectPaymentMethod(method, evt) {
       currentPaymentMethod = method;
       document.querySelectorAll('.payment-method-btn').forEach(btn => {
         btn.classList.remove('active');
       });
-      event.target.classList.add('active');
+      if (evt && evt.target) evt.target.classList.add('active');
 
       document.querySelectorAll('.payment-container-section').forEach(section => {
         section.classList.remove('active');
@@ -448,7 +455,7 @@
         return;
       }
 
-      const kesAmount = Math.round(trackPrice * USD_TO_KES);
+      const kesAmount = trackPrice; // price is already in KSh
       message.textContent = '📱 Initiating M-Pesa STK Push...';
       message.style.color = '#22B14C';
       btn.disabled = true;
@@ -480,7 +487,7 @@
           message.textContent = '✅ M-Pesa payment successful! Your purchase is being processed...';
           message.style.color = '#22B14C';
           
-          // Store payment confirmation
+          // Store payment confirmation and cart items for confirmation page
           const paymentData = {
             method: 'mpesa',
             phone: mpesaPaymentManager.formatPhoneNumber(phone),
@@ -492,6 +499,14 @@
             successful: true
           };
           sessionStorage.setItem('paymentData', JSON.stringify(paymentData));
+          // Set checkout_items + checkout_total so confirmation.html renders correctly
+          const checkoutItems = trackType === 'cart'
+            ? (JSON.parse(sessionStorage.getItem('checkout_items') || '[]'))
+            : [{ id: Date.now(), title: trackName, price: kesAmount }];
+          if (trackType !== 'cart') {
+            sessionStorage.setItem('checkout_items', JSON.stringify(checkoutItems));
+            sessionStorage.setItem('checkout_total', String(kesAmount));
+          }
           
           // Redirect based on payment type
           setTimeout(() => {
@@ -556,8 +571,8 @@
             },
             body: JSON.stringify({
               paymentMethodId: paymentMethod.id,
-              amount: trackPrice * 100,
-              currency: 'usd',
+              amount: trackPrice, // amount in KSh
+              currency: 'kes',
               trackName: trackName,
               email: email
             })

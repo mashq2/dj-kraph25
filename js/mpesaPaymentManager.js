@@ -5,7 +5,8 @@
 
 class MPesaPaymentManager {
   constructor() {
-    this.baseUrl = process.env.MPESA_BASE_URL || 'http://localhost:3000';
+    // Use relative URL — works whether served by Express or a static host with proxy
+    this.baseUrl = '';
     this.pollTimeout = 0;
   }
 
