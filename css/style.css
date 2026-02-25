@@ -2678,3 +2678,63 @@ button {
     padding: 12px;
   }
 }
+
+/* ── Player: base tidy-up ──────────────────────────────────────────── */
+.player-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+#nowPlaying {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  margin: 0;
+  color: #FFD700;
+}
+
+/* ── Player: compact phone bar (≤600 px) ──────────────────────────── */
+@media (max-width: 600px) {
+  .player {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    padding: 6px 10px !important;
+    gap: 8px !important;
+    align-items: center;
+    bottom: 0;
+    border-radius: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    transform: none;
+  }
+
+  .player-logo {
+    width: 28px;
+    height: 28px;
+  }
+
+  .player .player-controls {
+    flex-shrink: 0;
+    gap: 4px;
+  }
+
+  /* Override the generic touch-target rule that bloats control buttons */
+  .player .control-btn {
+    min-height: unset !important;
+    height: 34px !important;
+    width: 34px !important;
+    padding: 0 !important;
+    font-size: 14px !important;
+    border-radius: 6px !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
